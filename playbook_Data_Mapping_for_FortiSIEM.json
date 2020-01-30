@@ -1,0 +1,234 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "@context": "/api/3/contexts/WorkflowCollection",
+      "@type": "WorkflowCollection",
+      "name": "Data Mapping for FortiSIEM",
+      "description": null,
+      "visible": true,
+      "image": null,
+      "id": 12043,
+      "createUser": {
+        "@id": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+        "@type": "Person",
+        "firstname": "CS",
+        "lastname": "Admin",
+        "title": "Admin",
+        "email": "siem@tryptichconsulting.com",
+        "department": null,
+        "description": null,
+        "phoneFax": null,
+        "phoneHome": null,
+        "phoneMobile": null,
+        "phoneWork": "+16462759691",
+        "companyId": null,
+        "type": null,
+        "userId": "ce5a842b-fbbc-4c6e-8d35-a0438fcdf80c",
+        "userType": null,
+        "avatar": null,
+        "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+        "createDate": 1548073818,
+        "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+        "modifyDate": 1578389171,
+        "id": 88,
+        "@settings": "/api/3/user_settings/3451141c-bac6-467c-8d72-85e0fab569ce"
+      },
+      "createDate": 1580294509,
+      "modifyUser": {
+        "@id": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+        "@type": "Person",
+        "firstname": "CS",
+        "lastname": "Admin",
+        "title": "Admin",
+        "email": "siem@tryptichconsulting.com",
+        "department": null,
+        "description": null,
+        "phoneFax": null,
+        "phoneHome": null,
+        "phoneMobile": null,
+        "phoneWork": "+16462759691",
+        "companyId": null,
+        "type": null,
+        "userId": "ce5a842b-fbbc-4c6e-8d35-a0438fcdf80c",
+        "userType": null,
+        "avatar": null,
+        "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+        "createDate": 1548073818,
+        "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+        "modifyDate": 1578389171,
+        "id": 88,
+        "@settings": "/api/3/user_settings/3451141c-bac6-467c-8d72-85e0fab569ce"
+      },
+      "modifyDate": 1580294509,
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "FortiSIEM Data Mapping",
+          "aliasName": null,
+          "description": "Data Mapping for fortisiem",
+          "collection": "/api/3/workflow_collections/ea3c457a-4118-4d7d-b9d8-11079263da84",
+          "tag": "#Data #FortiSIEM",
+          "isActive": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/318c3141-d4a4-4f51-ad06-92264e0b09d0",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "resource": "alerts",
+                "resources": [
+                  "alerts"
+                ],
+                "step_variables": {
+                  "input": {
+                    "records": [
+                      "{{vars.input.records[0]}}"
+                    ]
+                  }
+                },
+                "fieldbasedtrigger": {
+                  "sort": [],
+                  "limit": 30,
+                  "logic": "AND",
+                  "filters": [
+                    {
+                      "type": "primitive",
+                      "field": "source",
+                      "value": "FSM-INTL-DEMO",
+                      "operator": "eq"
+                    }
+                  ]
+                }
+              },
+              "status": null,
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/ea155646-3821-4542-9702-b246da430a8d",
+              "uuid": "318c3141-d4a4-4f51-ad06-92264e0b09d0"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "sourcedata": "{{vars.input.records[0].sourcedata}}"
+              },
+              "status": null,
+              "left": "180",
+              "top": "108",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "7235c94f-e975-466b-86e4-8947ad91f1fb"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configure Data Mapping",
+              "description": null,
+              "arguments": {
+                "hostName": "{{vars.sourcedata.incident.hostName}}",
+                "ruleDesc": "{{vars.sourcedata.incident.ruleDesc}}",
+                "ruleName": "{{vars.sourcedata.incident.ruleName}}",
+                "severity": "{{vars.sourcedata.incident.severity}}",
+                "origDevIp": "{{vars.sourcedata.incident.origDevIp}}",
+                "srcIpAddr": "{{vars.sourcedata.incident.srcIpAddr}}",
+                "cacheIndex": "{{vars.sourcedata.incident.cacheIndex}}",
+                "destIpAddr": "{{vars.sourcedata.incident.destIpAddr}}",
+                "deviceType": "{{vars.sourcedata.incident.deviceType}}",
+                "hostIpAddr": "{{vars.sourcedata.incident.hostIpAddr}}",
+                "incidentEt": "{{vars.sourcedata.incident.incidentEt}}",
+                "incidentId": "{{vars.sourcedata.incident.incidentId}}",
+                "resolution": "{{vars.sourcedata.incident.resolution}}",
+                "incidentSrc": "{{vars.sourcedata.incident.incidentSrc}}",
+                "origDevName": "{{vars.sourcedata.incident.origDevName}}",
+                "severityCat": "{{vars.sourcedata.incident.severityCat}}",
+                "creationTime": "{{vars.sourcedata.incident.creationTime}}",
+                "lastModified": "{{vars.sourcedata.incident.lastModified}}",
+                "lastSeenTime": "{{vars.sourcedata.incident.lastSeenTime}}",
+                "incidentCount": "{{vars.sourcedata.incident.incidentCount}}",
+                "incidentDetail": "{{vars.sourcedata.incident.incidentDetail}}",
+                "incidentTarget": "{{vars.sourcedata.incident.incidentTarget}}",
+                "incidentCategory": "{{vars.sourcedata.incident.incidentCategory}}"
+              },
+              "status": null,
+              "left": "327",
+              "top": "200",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "0d63713b-a15b-4511-9473-79a0c4116c53"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Alert Attributes",
+              "description": null,
+              "arguments": {
+                "resource": {
+                  "name": "{{vars.ruleName}}-{{vars.incidentId}}-{{vars.incidentCount}}",
+                  "status": "{% if vars.resolution == 'Open' %}{{(\"AlertStatus\" | picklist(\"Open\"))[\"@id\"]}}{% endif %}",
+                  "subject": "{{vars.ruleDesc}}",
+                  "severity": "{% if vars.severityCat == 'MEDIUM' %}{{(\"Severity\" | picklist(\"Medium\"))[\"@id\"]}}{% elif vars.severityCat == 'HIGH' %}{{(\"Severity\" | picklist(\"High\"))[\"@id\"]}}{% elif vars.severityCat == 'LOW' %}{{(\"Severity\" | picklist(\"Low\"))[\"@id\"]}}{% endif %}",
+                  "sourceIP": "{{vars.srcIpAddr}}",
+                  "sourceId": "{{vars.hostName}}",
+                  "sourcetype": "{{vars.incidentCategory}}",
+                  "description": "<p>Description: {{vars.ruleDesc}}</p>\n<p>Incident Category: {{vars.incidentCategory}}</p>\n<p>Incident Source: {{vars.incidentSrc}}</p>\n<p>Incident Target: {{vars.incidentTarget}}</p>\n<p>Incident Details: {{vars.incidentDetail}}</p>\n<p>Raw Event: {{vars.cacheIndex}}</p>",
+                  "targetAsset": "{{vars.incidentTarget}}",
+                  "computerName": "{{vars.origDevName}}",
+                  "destinationIP": "{{vars.destIpAddr}}",
+                  "attachmentNames": "{{vars.incidentDetail}}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "/api/3/alerts",
+                "step_variables": []
+              },
+              "status": null,
+              "left": "486",
+              "top": "280",
+              "stepType": "/api/3/workflow_step_types/b593663d-7d13-40ce-a3a3-96dece928722",
+              "uuid": "8e355b34-3f09-4ac7-8361-8912cd855b33"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "a55dd2f2-17f9-4f4a-bb50-82860be32b49",
+              "name": "Start -> Configuration",
+              "label": null,
+              "isExecuted": false,
+              "targetStep": "/api/3/workflow_steps/7235c94f-e975-466b-86e4-8947ad91f1fb",
+              "sourceStep": "/api/3/workflow_steps/318c3141-d4a4-4f51-ad06-92264e0b09d0"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "31009bd6-6041-462f-90bb-7071e6eed92d",
+              "name": "Configuration -> Configure Data Mapping",
+              "label": null,
+              "isExecuted": false,
+              "targetStep": "/api/3/workflow_steps/0d63713b-a15b-4511-9473-79a0c4116c53",
+              "sourceStep": "/api/3/workflow_steps/7235c94f-e975-466b-86e4-8947ad91f1fb"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "0f5198d4-f780-4382-9397-5cfcf1ae4706",
+              "name": "Configure Data Mapping -> Update Alert",
+              "label": null,
+              "isExecuted": false,
+              "targetStep": "/api/3/workflow_steps/8e355b34-3f09-4ac7-8361-8912cd855b33",
+              "sourceStep": "/api/3/workflow_steps/0d63713b-a15b-4511-9473-79a0c4116c53"
+            }
+          ],
+          "versions": null,
+          "lastModifyDate": 1580397985,
+          "uuid": "800b333e-b7e8-4519-88fe-f623801c1a7a",
+          "isPrivate": false,
+          "owners": []
+        }
+      ]
+    }
+  ]
+}
