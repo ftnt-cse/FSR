@@ -1,3 +1,4 @@
+#slightly modified to work with FortiGate when VDOMs are disabled (config sys global; unset vdom-mode multi-vdom)
 import json, re
 import requests, ipaddress
 import paramiko
