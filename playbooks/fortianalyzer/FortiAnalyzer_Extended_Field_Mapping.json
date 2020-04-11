@@ -1,0 +1,177 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "@context": "/api/3/contexts/WorkflowCollection",
+      "@type": "WorkflowCollection",
+      "name": "000-Sample - Fortinet FortiAnalyzer - 1.1.0",
+      "description": "Sample playbooks for \"Fortinet FortiAnalyzer\" connector. If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.",
+      "visible": true,
+      "image": "/api/3/images/7f1f8ea5-1b5c-49ce-ae53-b446441f221d",
+      "id": 96,
+      "createDate": 1586589837,
+      "modifyDate": 1586590863,
+      "recordTags": [],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "FortiAnalyzer Extended Fields Mapper",
+          "aliasName": null,
+          "description": null,
+          "collection": "/api/3/workflow_collections/4519d15c-1293-4c75-9e1f-9e5065cdbf4d",
+          "tag": null,
+          "isActive": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/289fa464-aa56-4e8c-b2f9-fb11b07a4dc5",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "1193a65d-f426-49e2-bab9-434239aad9bc",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "singleRecordExecution": true
+              },
+              "status": null,
+              "left": "125",
+              "top": "30",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "uuid": "289fa464-aa56-4e8c-b2f9-fb11b07a4dc5"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Set Source Data",
+              "description": null,
+              "arguments": {
+                "source_data": "{{vars.input.records[0].sourcedata}}"
+              },
+              "status": null,
+              "left": "125",
+              "top": "165",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "28c71e6a-4d8a-4cf0-9164-d9f2635fdbb0"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Extract and Set Attributes",
+              "description": null,
+              "arguments": {
+                "devname": "{{vars.source_data|json_query('events_data[*].devname')|unique}}",
+                "devtype": "{{vars.source_data|json_query('events_data[*].devtype')|unique}}",
+                "asset_ip": "{%if vars.source_data.alert_data.endpoint %}\n{{vars.source_data.alert_data.endpoint.split('/')[0].replace('\\n','')}}\n{% else %}\n0.0.0.0\n{% endif %}",
+                "triggerdesc": "{{vars.source_data|json_query('events_data[*].triggerdesc')|unique}}",
+                "triggername": "{{vars.source_data|json_query('events_data[*].triggername')|unique}}",
+                "firstlogtime": "{{vars.source_data|json_query('events_data[*].firstlogtime')}}",
+                "subject_text": "{{vars.source_data|json_query('events_data[*].subject.text')|unique}}",
+                "groupby1_text": "{{vars.source_data|json_query('events_data[*].groupby1.text')|unique}}",
+                "groupby2_text": "{{vars.source_data|json_query('events_data[*].groupby2.text')|unique}}",
+                "alert_category": "{{vars.input.records[0].description| regex_search(\"CAT\\d\")}}",
+                "extrainfo_text": "{{vars.source_data|json_query('events_data[*].extrainfo.text')|unique}}",
+                "alert_category_map": "{'CAT1': {{\"AlertType\" | picklist(\"Policy Violation\")}}, 'CAT2': {{\"AlertType\" | picklist(\"Denial of Service\")}}, 'CAT3': {{\"AlertType\" | picklist(\"Malware\")}},'CAT4': {{\"AlertType\" | picklist(\"Policy Violation\")}},'CAT5': {{\"AlertType\" | picklist(\"Reconnaissance\")}},'CAT6': {{\"AlertType\" | picklist(\"Other / Unknown\")}}\n}",
+                "extracted_artifact": "{{(vars.source_data|json_query('events_data[*].extrainfo.text')|unique) | join(', ') | extract_artifacts}}"
+              },
+              "status": null,
+              "left": "125",
+              "top": "300",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "uuid": "75c306f9-4db9-4bee-898a-5c47cd04363e"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Alert Fields",
+              "description": null,
+              "arguments": {
+                "resource": {
+                  "name": "{%if vars.subject_text | length == 1 %} {{vars.subject_text.0}} {% else %} {{vars.triggername.0}} {% endif %}",
+                  "type": "{{vars.alert_category | resolveRange(vars.alert_category_map)}}",
+                  "sourceIp": "{{vars.asset_ip|replace(\"\\n\",\"\")}}",
+                  "description": "<p>{{vars.input.records[0].description}}</p>\n<p>Events reported by&nbsp;{{vars.devtype.0}} <span style=\"color: #00ccff;\">{{vars.devname.0}}</span></p>\n<p>First event occurred at <strong>{{arrow.get(vars.firstlogtime[0]|int).format('YYYY-MM-DD HH:mm:ss ZZ') }}<span style=\"font-size: 0.8em; letter-spacing: 0.76px;\">&nbsp;</span></strong></p>\n<p><span style=\"font-size: 12pt; color: #ffffff;\"><strong><span style=\"letter-spacing: 0.76px;\">Alert Details:</span></strong></span></p>\n<p>{% for item in vars.extrainfo_text %}<span style=\"color: #cc99ff;\">{{ item }}</span><br />{% endfor %}</p>\n<p><strong>Triggering Rule Description:</strong></p>\n<p>{% for item in vars.triggerdesc %}<span style=\"color: #cc99ff;\">{{ item }}</span><br />{% endfor %}</p>\n<p>&nbsp;</p>",
+                  "destinationIp": "{{vars.extracted_artifact.IP[0]}}",
+                  "relatedEvents": "{{vars.extracted_artifact}}"
+                },
+                "_showJson": false,
+                "operation": "Overwrite",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "collectionType": "/api/3/alerts",
+                "fieldOperation": {
+                  "recordTags": "Overwrite"
+                },
+                "step_variables": []
+              },
+              "status": null,
+              "left": "125",
+              "top": "435",
+              "stepType": "/api/3/workflow_step_types/b593663d-7d13-40ce-a3a3-96dece928722",
+              "uuid": "ae0c3c2e-c4e6-4b72-b46f-28e6d2f1e47d"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "9fc32454-1072-4e21-ae0d-f382c85d3847",
+              "name": "Start -> Set Var",
+              "label": null,
+              "isExecuted": false,
+              "targetStep": "/api/3/workflow_steps/28c71e6a-4d8a-4cf0-9164-d9f2635fdbb0",
+              "sourceStep": "/api/3/workflow_steps/289fa464-aa56-4e8c-b2f9-fb11b07a4dc5"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "e4f84db7-1695-4c7b-9532-c9c75d60f492",
+              "name": "Set Var -> Extract and Set Attributes",
+              "label": null,
+              "isExecuted": false,
+              "targetStep": "/api/3/workflow_steps/75c306f9-4db9-4bee-898a-5c47cd04363e",
+              "sourceStep": "/api/3/workflow_steps/28c71e6a-4d8a-4cf0-9164-d9f2635fdbb0"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "42998e83-415c-4bcc-8b53-6de9818ffbe4",
+              "name": "Extract and Set Attributes -> Update Alert Fields",
+              "label": null,
+              "isExecuted": false,
+              "targetStep": "/api/3/workflow_steps/ae0c3c2e-c4e6-4b72-b46f-28e6d2f1e47d",
+              "sourceStep": "/api/3/workflow_steps/75c306f9-4db9-4bee-898a-5c47cd04363e"
+            }
+          ],
+          "versions": null,
+          "lastModifyDate": 1586609006,
+          "uuid": "f4400726-63c0-48ac-8f37-dd4db72aebbd",
+          "recordTags": [
+            "/api/3/tags/FAZ",
+            "/api/3/tags/Ingest"
+          ],
+          "isPrivate": false,
+          "owners": []
+        }
+      ]
+    }
+  ],
+  "exported_tags": [
+    "FAZ",
+    "Ingest"
+  ]
+}
