@@ -1,0 +1,705 @@
+{
+  "@id": "/api/3/dashboard/e7cae752-7c2a-4535-8cdd-75c1b9616b29",
+  "@type": "GenericTemplate",
+  "displayName": "FortiSIEM",
+  "config": {
+    "rows": [
+      {
+        "columns": [
+          {
+            "widgets": [
+              {
+                "type": "performanceMetrics",
+                "config": {
+                  "wid": "918be5c6-c2d4-4291-94af-559dc7684871",
+                  "grouping": {
+                    "primary": [],
+                    "secondary": []
+                  },
+                  "showSavings": "dollar",
+                  "includeFailedPlaybooks": true,
+                  "excludeConfigActions": true,
+                  "days": 3,
+                  "showPercentageChanges": true,
+                  "metricsType": "ratio",
+                  "resource": "alerts",
+                  "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      }
+                    ]
+                  },
+                  "title": "FortiSIEM Alerts Ratio",
+                  "timeRange": "createDate",
+                  "ratioResource": "alerts",
+                  "ratioquery": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  },
+                  "ratiotimeRange": "createDate"
+                }
+              },
+              {
+                "type": "performanceMetrics",
+                "config": {
+                  "wid": "3b5b44c1-abe5-4240-8bad-7364b8d772f8",
+                  "grouping": {
+                    "primary": [],
+                    "secondary": []
+                  },
+                  "showSavings": "dollar",
+                  "includeFailedPlaybooks": true,
+                  "excludeConfigActions": true,
+                  "days": 3,
+                  "showPercentageChanges": true,
+                  "metricsType": "ratio",
+                  "resource": "incidents",
+                  "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      }
+                    ]
+                  },
+                  "title": "FortiSIEM Incidents Ratio",
+                  "timeRange": "createDate",
+                  "ratioResource": "incidents",
+                  "ratioquery": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": []
+                  },
+                  "ratiotimeRange": "createDate"
+                }
+              }
+            ],
+            "style": "col-lg-3"
+          },
+          {
+            "widgets": [
+              {
+                "type": "performanceMetrics",
+                "config": {
+                  "wid": "a34953f1-5f9e-4faf-864f-2d9ddb8ec45c",
+                  "grouping": {
+                    "primary": [],
+                    "secondary": []
+                  },
+                  "showSavings": "dollar",
+                  "includeFailedPlaybooks": true,
+                  "excludeConfigActions": true,
+                  "days": 3,
+                  "showPercentageChanges": true,
+                  "metricsType": "totalCount",
+                  "oprationType": "difference",
+                  "opration": "max",
+                  "title": "Total Alerts Ingested",
+                  "resource": "alerts",
+                  "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      }
+                    ]
+                  },
+                  "timeRange": "createDate"
+                }
+              },
+              {
+                "type": "performanceMetrics",
+                "config": {
+                  "wid": "bceffac6-c60e-46d2-b09b-c08c8f67a199",
+                  "grouping": {
+                    "primary": [],
+                    "secondary": []
+                  },
+                  "showSavings": "dollar",
+                  "includeFailedPlaybooks": true,
+                  "excludeConfigActions": true,
+                  "days": 3,
+                  "showPercentageChanges": true,
+                  "metricsType": "totalCount",
+                  "oprationType": "difference",
+                  "opration": "max",
+                  "title": "Total Incidents Created",
+                  "resource": "incidents",
+                  "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      }
+                    ]
+                  },
+                  "timeRange": "createDate"
+                }
+              }
+            ],
+            "style": "col-lg-3"
+          },
+          {
+            "widgets": [
+              {
+                "type": "performanceMetrics",
+                "config": {
+                  "wid": "1baf554c-a233-45c1-91ea-35e465e2b617",
+                  "grouping": {
+                    "primary": [],
+                    "secondary": []
+                  },
+                  "showSavings": "dollar",
+                  "includeFailedPlaybooks": true,
+                  "excludeConfigActions": true,
+                  "days": 3,
+                  "showPercentageChanges": true,
+                  "metricsType": "totalCount",
+                  "title": "Currently Opened Alerts",
+                  "resource": "alerts",
+                  "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      },
+                      {
+                        "field": "status",
+                        "operator": "neq",
+                        "value": "/api/3/picklists/fac53e73-8d16-4189-98d5-95fbd1555232",
+                        "_value": {
+                          "display": "Closed",
+                          "itemValue": "Closed",
+                          "@id": "/api/3/picklists/fac53e73-8d16-4189-98d5-95fbd1555232"
+                        },
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "timeRange": "createDate"
+                }
+              },
+              {
+                "type": "performanceMetrics",
+                "config": {
+                  "wid": "4e905606-ab8e-4c7e-a552-384a71b66e0c",
+                  "grouping": {
+                    "primary": [],
+                    "secondary": []
+                  },
+                  "showSavings": "dollar",
+                  "includeFailedPlaybooks": true,
+                  "excludeConfigActions": true,
+                  "days": 3,
+                  "showPercentageChanges": true,
+                  "metricsType": "totalCount",
+                  "title": "Currently Opened Incidents",
+                  "resource": "incidents",
+                  "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      },
+                      {
+                        "field": "status",
+                        "operator": "neq",
+                        "value": "/api/3/picklists/bb73fd5e-f699-11e7-8c3f-9a214cf093ae",
+                        "_value": {
+                          "itemValue": "Resolved",
+                          "@id": "/api/3/picklists/bb73fd5e-f699-11e7-8c3f-9a214cf093ae"
+                        },
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "timeRange": "createDate"
+                }
+              }
+            ],
+            "style": "col-lg-3"
+          },
+          {
+            "widgets": [
+              {
+                "type": "performanceMetrics",
+                "config": {
+                  "wid": "9b28b4bd-4edf-490d-ad64-cdc74b4f866c",
+                  "grouping": {
+                    "primary": [],
+                    "secondary": []
+                  },
+                  "showSavings": "dollar",
+                  "includeFailedPlaybooks": true,
+                  "excludeConfigActions": true,
+                  "days": 3,
+                  "showPercentageChanges": true,
+                  "metricsType": "totalCount",
+                  "title": "Closed Alerts",
+                  "resource": "alerts",
+                  "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      },
+                      {
+                        "field": "status",
+                        "operator": "eq",
+                        "value": "/api/3/picklists/fac53e73-8d16-4189-98d5-95fbd1555232",
+                        "_value": {
+                          "display": "Closed",
+                          "itemValue": "Closed",
+                          "@id": "/api/3/picklists/fac53e73-8d16-4189-98d5-95fbd1555232"
+                        },
+                        "type": "object"
+                      }
+                    ]
+                  },
+                  "timeRange": "resolveddate"
+                }
+              },
+              {
+                "type": "performanceMetrics",
+                "config": {
+                  "wid": "ebb46400-8d13-4f51-b11a-ba48644fe5ab",
+                  "grouping": {
+                    "primary": [],
+                    "secondary": []
+                  },
+                  "showSavings": "dollar",
+                  "includeFailedPlaybooks": true,
+                  "excludeConfigActions": true,
+                  "days": 3,
+                  "showPercentageChanges": true,
+                  "metricsType": "totalCount",
+                  "title": "Resolved Incidents",
+                  "resource": "incidents",
+                  "query": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      }
+                    ]
+                  },
+                  "timeRange": "resolveddate"
+                }
+              }
+            ],
+            "style": "col-lg-3"
+          }
+        ],
+        "wid": "74976689-1dd4-4001-a18f-7a7841b07559"
+      },
+      {
+        "columns": [
+          {
+            "widgets": [
+              {
+                "type": "chart",
+                "config": {
+                  "wid": "bd7a504d-8aaa-45f4-b021-0861b39667cf",
+                  "query": {
+                    "sort": [
+                      {
+                        "field": "severity.orderIndex",
+                        "direction": "ASC"
+                      }
+                    ],
+                    "limit": 2147483647,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      }
+                    ],
+                    "aggregates": [
+                      {
+                        "operator": "countdistinct",
+                        "field": "*",
+                        "alias": "total"
+                      },
+                      {
+                        "operator": "groupby",
+                        "alias": "severity",
+                        "field": "severity.itemValue"
+                      },
+                      {
+                        "operator": "groupby",
+                        "alias": "color",
+                        "field": "severity.color"
+                      },
+                      {
+                        "operator": "groupby",
+                        "alias": "orderIndex",
+                        "field": "severity.orderIndex"
+                      }
+                    ]
+                  },
+                  "mapping": {
+                    "assignedToPerson": "",
+                    "fieldName": "severity"
+                  },
+                  "aggregate": true,
+                  "title": "Alerts Severity",
+                  "resource": "alerts",
+                  "chart": "donut"
+                }
+              }
+            ],
+            "style": "col-lg-3"
+          },
+          {
+            "widgets": [
+              {
+                "type": "chart",
+                "config": {
+                  "wid": "8158b02e-91a5-444f-a5c1-dcb254de4cd7",
+                  "query": {
+                    "sort": [
+                      {
+                        "field": "type.orderIndex",
+                        "direction": "ASC"
+                      },
+                      {
+                        "field": "source",
+                        "direction": "ASC"
+                      }
+                    ],
+                    "limit": 2147483647,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      }
+                    ],
+                    "aggregates": [
+                      {
+                        "operator": "countdistinct",
+                        "field": "*",
+                        "alias": "total"
+                      },
+                      {
+                        "operator": "groupby",
+                        "alias": "type",
+                        "field": "type.itemValue"
+                      },
+                      {
+                        "operator": "groupby",
+                        "alias": "firstOrderIndex",
+                        "field": "type.orderIndex"
+                      },
+                      {
+                        "operator": "groupby",
+                        "alias": "source",
+                        "field": "source"
+                      }
+                    ]
+                  },
+                  "mapping": {
+                    "assignedToPerson": null,
+                    "fieldName": "",
+                    "firstGrouping": "type",
+                    "secondGrouping": "source"
+                  },
+                  "aggregate": true,
+                  "title": "Alerts Types",
+                  "resource": "alerts",
+                  "chart": "bar",
+                  "barStyle": "vertical"
+                }
+              }
+            ],
+            "style": "col-lg-9"
+          }
+        ],
+        "wid": "0e3618b9-6f7d-409b-8a71-65c7e81dd7a8"
+      },
+      {
+        "columns": [
+          {
+            "widgets": [
+              {
+                "type": "chart",
+                "config": {
+                  "wid": "c43fe1b4-ece7-42f3-96dc-cf2c6aebe36a",
+                  "query": {
+                    "sort": [
+                      {
+                        "field": "status.orderIndex",
+                        "direction": "ASC"
+                      }
+                    ],
+                    "limit": 2147483647,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      }
+                    ],
+                    "aggregates": [
+                      {
+                        "operator": "select",
+                        "alias": "status",
+                        "field": "status.itemValue"
+                      },
+                      {
+                        "operator": "select",
+                        "alias": "color",
+                        "field": "status.color"
+                      },
+                      {
+                        "operator": "select",
+                        "alias": "orderIndex",
+                        "field": "status.orderIndex"
+                      },
+                      {
+                        "operator": "select",
+                        "alias": "modifyDate",
+                        "field": "modifyDate"
+                      }
+                    ]
+                  },
+                  "mapping": {
+                    "assignedToPerson": "",
+                    "fieldName": "status",
+                    "dateFieldName": "modifyDate",
+                    "timeScope": "day",
+                    "dateFormat": "%b %e"
+                  },
+                  "aggregate": true,
+                  "title": "Alerts Status over Time",
+                  "resource": "alerts",
+                  "chart": "timeseries"
+                }
+              }
+            ],
+            "style": "col-lg-4"
+          },
+          {
+            "widgets": [
+              {
+                "type": "chart",
+                "config": {
+                  "wid": "7e1db0f9-ebea-4be6-bb51-15e147122d24",
+                  "query": {
+                    "sort": [
+                      {
+                        "field": "status.orderIndex",
+                        "direction": "ASC"
+                      }
+                    ],
+                    "limit": 2147483647,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "field": "source",
+                        "operator": "like",
+                        "_operator": "like",
+                        "value": "%FortiSIEM%",
+                        "type": "primitive"
+                      }
+                    ],
+                    "aggregates": [
+                      {
+                        "operator": "select",
+                        "alias": "status",
+                        "field": "status.itemValue"
+                      },
+                      {
+                        "operator": "select",
+                        "alias": "color",
+                        "field": "status.color"
+                      },
+                      {
+                        "operator": "select",
+                        "alias": "orderIndex",
+                        "field": "status.orderIndex"
+                      },
+                      {
+                        "operator": "select",
+                        "alias": "modifyDate",
+                        "field": "modifyDate"
+                      }
+                    ]
+                  },
+                  "mapping": {
+                    "assignedToPerson": "",
+                    "fieldName": "status",
+                    "dateFieldName": "modifyDate",
+                    "timeScope": "day",
+                    "dateFormat": "%b %e"
+                  },
+                  "aggregate": true,
+                  "title": "Incidents Status over Time",
+                  "resource": "incidents",
+                  "chart": "timeseries"
+                }
+              }
+            ],
+            "style": "col-lg-4"
+          },
+          {
+            "widgets": [
+              {
+                "type": "chart",
+                "config": {
+                  "wid": "50ef0c51-9890-42e8-98aa-70d5fff0dabd",
+                  "query": {
+                    "sort": [
+                      {
+                        "field": "assignedTo.firstname",
+                        "direction": "ASC"
+                      },
+                      {
+                        "field": "assignedTo.lastname",
+                        "direction": "ASC"
+                      },
+                      {
+                        "field": "status.orderIndex",
+                        "direction": "ASC"
+                      }
+                    ],
+                    "limit": 2147483647,
+                    "logic": "AND",
+                    "filters": [],
+                    "aggregates": [
+                      {
+                        "operator": "countdistinct",
+                        "field": "*",
+                        "alias": "total"
+                      },
+                      {
+                        "operator": "select",
+                        "alias": "assignedTo__firstname",
+                        "field": "assignedTo.firstname"
+                      },
+                      {
+                        "operator": "select",
+                        "alias": "assignedTo__lastname",
+                        "field": "assignedTo.lastname"
+                      },
+                      {
+                        "operator": "groupby",
+                        "alias": "assignedTo__uuid",
+                        "field": "assignedTo.uuid"
+                      },
+                      {
+                        "operator": "groupby",
+                        "alias": "status",
+                        "field": "status.itemValue"
+                      },
+                      {
+                        "operator": "groupby",
+                        "alias": "secondOrderIndex",
+                        "field": "status.orderIndex"
+                      },
+                      {
+                        "operator": "groupby",
+                        "alias": "color",
+                        "field": "status.color"
+                      }
+                    ]
+                  },
+                  "mapping": {
+                    "assignedToPerson": "",
+                    "firstGrouping": "assignedTo",
+                    "secondGrouping": "status"
+                  },
+                  "aggregate": true,
+                  "title": "Alerts Status per Analyst",
+                  "resource": "alerts",
+                  "chart": "bar",
+                  "barStyle": "horizontal"
+                }
+              }
+            ],
+            "style": "col-lg-4"
+          }
+        ],
+        "wid": "0d892e39-1480-436a-b106-b96a57132cac"
+      }
+    ],
+    "readOnlyFlag": true,
+    "refreshInterval": 3,
+    "wid": "17c1b0fb-9054-4ba3-a19a-d408fd936854"
+  },
+  "roles": [],
+  "updateDate": null,
+  "type": "rows",
+  "templateType": "dashboard",
+  "parentTemplateId": null,
+  "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+  "createDate": 1599222366,
+  "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+  "modifyDate": 1599227119,
+  "userId": null,
+  "isDefault": null,
+  "filterArray": []
+}
