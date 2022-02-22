@@ -4,12 +4,10 @@ Provides JunOS REST API Integration covering Juniper MX, PTX, QFX, T and SRX Ser
 <p>This document provides information about the Juniper JunOS Connector, which facilitates automated interactions, with a Juniper JunOS server using FortiSOAR&trade; playbooks. Add the Juniper JunOS Connector as a step in FortiSOAR&trade; playbooks and perform automated operations with Juniper JunOS.</p>
 
 ### Version information
-Connector Version: 1.0.0
-
-
-Authored By: Fortinet CSE
-
-Certified: No
+> Connector Version: 1.0.0
+> Tested on JunOS: 21
+> Authored By: Fortinet CSE
+> Certified: No
 
 ## Installing the connector
 <p>From FortiSOAR&trade; 5.0.0 onwards, use the <strong>Connector Store</strong> to install the connector. For the detailed procedure to install a connector, click <a href="https://docs.fortinet.com/document/fortisoar/0.0.0/installing-a-connector/1/installing-a-connector" target="_top">here</a>.<br>You can also use the following <code>yum</code> command as a root user to install connectors from an SSH session:</p>
@@ -116,11 +114,7 @@ The output contains the following populated JSON schema: <JSON Output>
 
 #### Output
 The output contains the following populated JSON schema: <JSON Output>
-
-
-### operation: Add Address(es) to a Prefix List
-#### Requirements
-
+85325
 - The action only creates and populates prefix list, you will need to associate it with a firewall filter. For example if the prefix list you create is called **Bad-IPs** (defined by the prefix list parameter) you will need to add the below configuration to use the prefix list to block traffic from/to its addresses on ge-0/0/0.0.
 
 ```bash
