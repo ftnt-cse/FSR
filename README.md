@@ -1,6 +1,8 @@
 ## About the connector
+
 Provides JunOS REST API Integration covering Juniper MX, PTX, QFX, T and SRX Series platforms
 <p>This document provides information about the Juniper JunOS Connector, which facilitates automated interactions, with a Juniper JunOS using FortiSOAR&trade; playbooks. Add the Juniper JunOS Connector as a step in FortiSOAR&trade; playbooks and perform automated operations with Juniper JunOS.</p>
+
 ### Version information
 
 Connector Version: 1.0.0
@@ -10,19 +12,25 @@ Authored By: ftnt-cse
 Certified: No
 
 ## Installing the connector
+
 <p>From FortiSOAR&trade; 5.0.0 onwards, use the <strong>Connector Store</strong> to install the connector. For the detailed procedure to install a connector, click <a href="https://docs.fortinet.com/document/fortisoar/0.0.0/installing-a-connector/1/installing-a-connector" target="_top">here</a>.<br>You can also use the following <code>yum</code> command as a root user to install connectors from an SSH session:</p>
 `yum install cyops-connector-juniper-junos`
 
 ## Prerequisites to configuring the connector
+
 - You must have the URL of Juniper JunOS server to which you will connect and perform automated operations and credentials to access that server.
 - The FortiSOAR&trade; server should have outbound connectivity to port 443 on the Juniper JunOS server.
 
 ## Minimum Permissions Required
+
 - N/A
 
 ## Configuring the connector
+
 For the procedure to configure a connector, click [here](https://docs.fortinet.com/document/fortisoar/0.0.0/configuring-a-connector/1/configuring-a-connector)
+
 ### Configuration parameters
+
 <p>In FortiSOAR&trade;, on the Connectors page, click the <strong>Juniper JunOS</strong> connector row (if you are in the <strong>Grid</strong> view on the Connectors page) and in the <strong>Configurations&nbsp;</strong> tab enter the required configuration details:&nbsp;</p>
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Device URL<br></td><td>Management IP address or FQDN of your JunOS device<br>
 <tr><td>Port<br></td><td>JunOS REST API TCP port<br>
