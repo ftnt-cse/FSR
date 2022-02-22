@@ -52,8 +52,8 @@ The following automated operations can be included in playbooks and you can also
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody>
 <tr><td>Method<br></td><td>RPC Command to run<br></td>
-</tr><tr><td>Custom Method<br></td><td>if the command is not in the list above (Method) you can use a custom one as a Custom method. To get the exact command syntax refer to this example on JunOS: **show route|display xml rpc** <br>
-</td></tr><tr><td>Method Parameters<br></td><td>Method parameters in JSON. For example, if the action is get-interface-information the parameter(s) could be **{'interface-name':'ge-0/0/0'}**<br>
+</tr><tr><td>Custom Method<br></td><td>if the command is not in the list above (Method) you can use a custom one as a Custom method. To get the exact command syntax refer to this example on JunOS: [show route|display xml rpc] <br>
+</td></tr><tr><td>Method Parameters<br></td><td>Method parameters in JSON. For example, if the action is get-interface-information the parameter(s) could be [{'interface-name':'ge-0/0/0'}]<br>
 </td></tr></tbody></table>
 
 
@@ -63,7 +63,7 @@ The output contains the following populated JSON schema: <JSON Output>
 ### operation: Run Configuration Command
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody>
-<tr><td>Request Payload<br></td><td>HTTP/POST XML Payload as documented here [https://www.juniper.net/documentation/us/en/software/junos/rest-api/rest-api.pdf](https://www.juniper.net/documentation/us/en/software/junos/rest-api/rest-api.pdf)<br>
+<tr><td>Request Payload<br></td><td>HTTP/POST XML Payload as documented here https://www.juniper.net/documentation/us/en/software/junos/rest-api/rest-api.pdf<br>
 </td></tr></tbody></table>
 
 #### Output
@@ -80,6 +80,13 @@ The output contains the following populated JSON schema: <JSON Output>
 
 
 ### operation: Add an Object to Global Address Set
+#### Requirements
+
+- This action will add object(s) (IP/FQDN/Wildcard) to an address set of the **global address book** so the address set (defined by the name you use in the Address Set parameter) can be used with any security policy from and to any zone.
+- The action doesn't create the security policy, the users have to do it themselves and associate the Address-Set with any policy of their choosing.
+- A maximum of 1024 address (IPv4) can be created. each IPv6 takes up a space of 4 IPv4s.
+- You can use **Get Address Set** /count Action to check how many records are there already.
+
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Address Set<br></td><td>Name of the address set<br>
 </td></tr><tr><td>Object Types<br></td><td>Type of the object(s) to add, only one type is supported at a time. Wildcard format is: A.B.C.D/E.F.G.H<br>
@@ -112,6 +119,18 @@ The output contains the following populated JSON schema: <JSON Output>
 
 
 ### operation: Add Address(es) to a Prefix List
+#### Requirements
+
+- The action only creates and populates prefix list, you will need to associate it with a firewall filter. For example if the prefix list you create is called **Bad-IPs** (defined by the prefix list parameter) you will need to add the below configuration to use the prefix list to block traffic from/to its addresses on ge-0/0/0.0.
+
+```bash
+set firewall family inet filter Blocked-Group term 1 from prefix-list Bad-IPs
+set firewall family inet filter Blocked-Group term 1 then discard
+set firewall family inet filter Blocked-Group term 99 then accept
+set interfaces ge-0/0/0.0 family inet filter input Blocked-Group
+set interfaces ge-0/0/0.0 family inet filter ouput Blocked-Group
+```
+
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Prefix List<br></td><td>Name of the Prefix List<br>
 </td></tr><tr><td>Address(es) To Add<br></td><td>IPv4 or IPv6 Address or Addresses (in CSV) to add to the prefix list<br>
