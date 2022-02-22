@@ -52,8 +52,8 @@ The following automated operations can be included in playbooks and you can also
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody>
 <tr><td>Method<br></td><td>RPC Command to run<br></td>
-</tr><tr><td>Custom Method<br></td><td>if the command is not in the list above (Method) you can use a custom one as a Custom method. To get the exact command syntax refer to this example on JunOS: `show route|display xml rpc` <br>
-</td></tr><tr><td>Method Parameters<br></td><td>Method parameters in JSON. For example, if the action is get-interface-information the parameter(s) could be `{'interface-name':'ge-0/0/0'}`<br>
+</tr><tr><td>Custom Method<br></td><td>if the command is not in the list above (Method) you can use a custom one as a Custom method. To get the exact command syntax refer to this example on JunOS: **show route|display xml rpc** <br>
+</td></tr><tr><td>Method Parameters<br></td><td>Method parameters in JSON. For example, if the action is get-interface-information the parameter(s) could be **{'interface-name':'ge-0/0/0'}**<br>
 </td></tr></tbody></table>
 
 
