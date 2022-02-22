@@ -2,8 +2,8 @@
 
 Provides JunOS REST API Integration covering Juniper MX, PTX, QFX, T and SRX Series platforms
 <p>This document provides information about the Juniper JunOS Connector, which facilitates automated interactions, with a Juniper JunOS server using FortiSOAR&trade; playbooks. Add the Juniper JunOS Connector as a step in FortiSOAR&trade; playbooks and perform automated operations with Juniper JunOS.</p>
-### Version information
 
+### Version information
 Connector Version: 1.0.0
 
 
@@ -20,8 +20,8 @@ Certified: No
 - The FortiSOAR&trade; server should have outbound connectivity to port 3443 (or the configured port) on the Juniper JunOS Appliance.
 
 ## Minimum Permissions Required
-- System for operational mode actions (get)
-- System-control for configuration mode (add/delete)
+- `System` for operational mode actions (get)
+- `System-control` for configuration mode (add/delete)
 
 ## Configuring the connector
 For the procedure to configure a connector, click [here](https://docs.fortinet.com/document/fortisoar/0.0.0/configuring-a-connector/1/configuring-a-connector)
@@ -29,7 +29,7 @@ For the procedure to configure a connector, click [here](https://docs.fortinet.c
 ### Configuration parameters
 <p>In FortiSOAR&trade;, on the Connectors page, click the <strong>Juniper JunOS</strong> connector row (if you are in the <strong>Grid</strong> view on the Connectors page) and in the <strong>Configurations&nbsp;</strong> tab enter the required configuration details:&nbsp;</p>
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody>
-<tr><td>Device URL<br></td><td>Management IP address or FQDN of JunOS appliance<br>
+<tr><td>Device URL<br></td><td>Management IP address or FQDN of the JunOS appliance<br>
 <tr><td>Port<br></td><td>JunOS REST API TCP port, default is 3443<br>
 <tr><td>Username<br></td><td>JunOS Username<br>
 <tr><td>Password<br></td><td>JunOS Password<br>
@@ -52,8 +52,8 @@ The following automated operations can be included in playbooks and you can also
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody>
 <tr><td>Method<br></td><td>RPC Command to run<br></td>
-</tr><tr><td>Custom Method<br></td><td>if the command is not in the list above (Method) you can use a custom one as a Custom method. To get the exact command syntax refer to this example on JunOS: show route|display xml rpc<br>
-</td></tr><tr><td>Method Parameters<br></td><td>Method parameters in JSON. For example, if the action is get-interface-information the parameter(s) could be`{'interface-name':'ge-0/0/0'}`<br>
+</tr><tr><td>Custom Method<br></td><td>if the command is not in the list above (Method) you can use a custom one as a Custom method. To get the exact command syntax refer to this example on JunOS: `show route|display xml rpc` <br>
+</td></tr><tr><td>Method Parameters<br></td><td>Method parameters in JSON. For example, if the action is get-interface-information the parameter(s) could be `{'interface-name':'ge-0/0/0'}`<br>
 </td></tr></tbody></table>
 
 
@@ -63,8 +63,9 @@ The output contains the following populated JSON schema: <JSON Output>
 ### operation: Run Configuration Command
 #### Input parameters
 <table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody>
-<tr><td>Request Payload<br></td><td>HTTP/POST XML Payload as [documented here](https://www.juniper.net/documentation/us/en/software/junos/rest-api/rest-api.pdf)<br>
+<tr><td>Request Payload<br></td><td>HTTP/POST XML Payload as documented here [https://www.juniper.net/documentation/us/en/software/junos/rest-api/rest-api.pdf](https://www.juniper.net/documentation/us/en/software/junos/rest-api/rest-api.pdf)<br>
 </td></tr></tbody></table>
+
 #### Output
 The output contains the following populated JSON schema: <JSON Output>
 
