@@ -1,0 +1,2488 @@
+Delivered-To: jill@fortipoc.test
+Received: by 2002:a05:6a10:698e:b0:4c8:bfc7:90a3 with SMTP id n14csp4356139pxx;
+        Thu, 22 Jun 2023 22:29:34 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5aQRkrZ6AlMT4gNjs3PWMBny5loP+QjpZsZiuGUwUe1m8GRVDQYfCsPqTXW9JLbxTjwQZn
+X-Received: by 2002:aa7:d501:0:b0:51a:4baf:669f with SMTP id y1-20020aa7d501000000b0051a4baf669fmr10382466edq.6.1687498174255;
+        Thu, 22 Jun 2023 22:29:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1687498174; cv=none;
+        d=fortipoc.test; s=arc-20160816;
+        b=VNzzUKSw0JRObcKnzubffKsik6IWAAE0FV2UL3l8egKUd6ZZEgGW/rj6dFiyFkCfUz
+         9HAhXTul6cLiaJKP4d410Fvmq/ziBJyNj5S4jRa5tP+VoNiTrwi2dsumAQhX3EjejyGZ
+         uhVAgOXXciHnKIWFnGV9aWhZxfhndSCzB8MExwhLK0yldS9wM6iY4jxByEjPZDrQ0uzM
+         8gBasg2mFuVxpXaNuZ2Xm/HqFs0Ia2gCODaw0HNz/MEvcPb6tGJRlHeTuDg1S3uPBH4a
+         vYSxjzXdFo//Tqtq8WuziyZ9u0d6IV7/t3t7K+lmauGeS9yNk78yHXWGIQxhO+eK2vIj
+         wvig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=fortipoc.test; s=arc-20160816;
+        h=require-recipient-valid-since:feedback-id:list-unsubscribe:date:to
+         :mime-version:subject:message-id:from:dkim-signature:dkim-signature;
+        bh=NmocAQNUVsc7wOzd5QUY8V4kJX8xjDinDOL3EyXjW/o=;
+        b=ldhtgHSMmSKIbV/Wz5qyqo54iqxZqnMBxd5BI1QPg/1/tiuI1PIXoFUi04y/kFN7VT
+         0EIvu8FJ86RMlq+eoZa6ksrkflTN2dXeBGT5rOxzugytwBzcdKPxc05JTD56xqNy4Jx6
+         uEcxn9pCfbzRjbg54oT6st/4RqfLhDqhnq/Yrn6ZAfZCkQsMToyU2kI850oZFEt2hgjr
+         awLQ59MvtaW61RQpJX3tQvBkBFOfkNKku14VdB9OD7RDSF3h8BWvNSrMdZAFc0mt2l9d
+         tCzyrccuhSJXGXwfI7CATveeIVLqyKYjC9+Zt/Hz5SKW0QrVePztYRua6TH6L5g1AqJN
+         59UQ==
+ARC-Authentication-Results: i=1; mx.fortipoc.test;
+       dkim=pass header.i=@linnkedin.com header.s=d2048-201806-01 header.b=rUQxq8Pi;
+       dkim=pass header.i=@maile.linnkedin.com header.s=proddkim1024 header.b=k9R+1Emk;
+       spf=pass (fortipoc.test: domain of m-3v493h8x742fajgcjho2voa70yfyawqljnws66qf8hcu1fzd72f5k@bounce.linnkedin.com designates 2620:109:c006:104::202 as permitted sender) smtp.mailfrom=m-3v493h8x742fajgcjho2voa70yfyawqljnws66qf8hcu1fzd72f5k@bounce.linnkedin.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=linnkedin.com
+Return-Path: <m-3v493h8x742fajgcjho2voa70yfyawqljnws66qf8hcu1fzd72f5k@bounce.linnkedin.com>
+Received: from maile-bb.linnkedin.com (maile-bb.linnkedin.com. [2620:109:c006:104::2])
+        by mx.fortipoc.test with ESMTPS id v15-20020aa7d9cf000000b0051bc7142a94si1084920eds.556.2023.06.22.22.29.33
+        for <jill@fortipoc.test>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 22 Jun 2023 22:29:34 -0700 (PDT)
+Received-SPF: pass (fortipoc.test: domain of m-3v493h8x742fajgcjho2voa70yfyawqljnws66qf8hcu1fzd72f5k@bounce.linnkedin.com designates 2620:109:c006:104::202 as permitted sender) client-ip=2620:109:c006:104::202;
+Authentication-Results: mx.fortipoc.test;
+       dkim=pass header.i=@linnkedin.com header.s=d2048-201806-01 header.b=rUQxq8Pi;
+       dkim=pass header.i=@maile.linnkedin.com header.s=proddkim1024 header.b=k9R+1Emk;
+       spf=pass (fortipoc.test: domain of m-3v493h8x742fajgcjho2voa70yfyawqljnws66qf8hcu1fzd72f5k@bounce.linnkedin.com designates 2620:109:c006:104::202 as permitted sender) smtp.mailfrom=m-3v493h8x742fajgcjho2voa70yfyawqljnws66qf8hcu1fzd72f5k@bounce.linnkedin.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=linnkedin.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linnkedin.com;
+	s=d2048-201806-01; t=1687498173;
+	bh=NmocAQNUVsc7wOzd5QUY8V4kJX8xjDinDOL3EyXjW/o=;
+	h=From:Subject:MIME-Version:Content-Type:To:Date:X-linnkedin-Class:
+	 X-linnkedin-Template:X-linnkedin-fbl;
+	b=rUQxq8PiWnEuCWGWi/ywM3JS8MxUAvgwcbS/X0bMjIfy8CSqOBLhbQAmgGaQ4FR+H
+	 kSlMwT0722MwjHkAHpug+hzDwad7hSfvdzWpWyOb9fdCEgAUEwnVqqboVpJlI88geR
+	 3yUJGFOa++muNqfO630tSu1n37zke6Ne23YknBO7iT55goKfZnBrdg/2GxE9KD1sfd
+	 FTZQ4w9fY6dhcpuSF+L+xhIukR3c85o15VLpfcNgkefB1p+DAFWTyiOzMTO/6bUhQw
+	 npKQFx0aGG5K0/5u8pKidoJP6gE/jOKKR68tLHr7uDynCLE5qxajkyJirX4OQIAhPI
+	 oqNhiR6Dy+JGg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=maile.linnkedin.com;
+	s=proddkim1024; t=1687498173;
+	bh=NmocAQNUVsc7wOzd5QUY8V4kJX8xjDinDOL3EyXjW/o=;
+	h=From:Subject:MIME-Version:Content-Type:To:Date:X-linnkedin-Class:
+	 X-linnkedin-Template:X-linnkedin-fbl;
+	b=k9R+1Emk4B5JI3xcGkSO3QL8+GWynXlr3fao6+YgnbFFkNrUIrM3kqLQs1q4fAKML
+	 kaQ9zlKbLA5yeOFxRi7ZXt9PR1gnw5zF7FjSQN4zqRMi98BT6iUu0rXbC/TcqT1p1Z
+	 UHitCONrt3X+DWVCF5KmzNeNqFP29vGbTvnb4zCc=
+From: news@linkedin.com <noreply@linnkedin.com>
+Message-ID: <1898954957.1337876.1687498172823@lor1-app87336.prod.linnkedin.com>
+Subject: Jill, see recent newsletters by Tony Robbins and others
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1337874_1278307018.1687498172821"
+To: Jill Valentine <jill@fortipoc.test>
+Date: Fri, 23 Jun 2023 05:29:32 +0000 (UTC)
+X-LinkedIn-Class: EMAIL-DEFAULT
+X-LinkedIn-Template: email_news_letter_round_up_01
+X-LinkedIn-fbl: m2-aszzevxfhgxxe61uksh5c4menu05bwkhcerxwobuaect3hv8rikz55w89521459b5urkebe25nqmjwvzkzrg45mvcscnipjnvgvf49
+X-LinkedIn-Id: 6kxzl-lj84ub0h-d8
+List-Unsubscribe: <https://www.linkedin.com/comm/psettings/email-unsubscribe?lipi=urn%3Ali%3Apage%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAIqaMg%3D%3D&midToken=AQFVATkQO1mR3g&midSig=2m47XM97MF9WQ1&trk=eml-email_news_letter_round_up_01-unsub-0-unsub&trkEmail=eml-email_news_letter_round_up_01-unsub-0-unsub-null-6kxzl~lj84ub0h~d8-null-null&eid=6kxzl-lj84ub0h-d8&loid=AQGQPOHBjnpMKQAAAYjmuqemuc2oGdDf40_mHKNp5Se-Vo3Z0c87IGTIETqxqhylTTIggg9Lt74bqyqTEdHRh3JECneZR0EicAmy70Q6S0xV4Jg>
+Feedback-ID: email_news_letter_round_up_01:linkedin
+Require-Recipient-Valid-Since: jill@fortipoc.test; Sun, 8 Feb 2015 20:21:55 +0000
+
+------=_Part_1337874_1278307018.1687498172821
+Content-Type: text/plain;charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-ID: text-body
+
+----------------
+
+This email was intended for Jill Valentine (Principal Consulting Systems Engin=
+eer at Fortinet)
+Learn why we included this:
+      https://www.linkedin.com/help/linkedin/answer/4788?lang=3Den&lipi=3Du=
+rn%3Ali%3Apage%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAI=
+qaMg%3D%3D&midToken=3DAQFVATkQO1mR3g&midSig=3D2m47XM97MF9WQ1&trk=3Deml-emai=
+l_news_letter_round_up_01-SecurityHelp-0-textfooterglimmer&trkEmail=3Deml-e=
+mail_news_letter_round_up_01-SecurityHelp-0-textfooterglimmer-null-6kxzl~lj=
+84ub0h~d8-null-null&eid=3D6kxzl-lj84ub0h-d8
+You are receiving LinkedIn notification emails.
+
+         =20
+           =20
+         =20
+       =20
+Unsubscribe:
+      https://www.linkedin.com/comm/psettings/email-unsubscribe?lipi=3Durn%=
+3Ali%3Apage%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAIqaM=
+g%3D%3D&midToken=3DAQFVATkQO1mR3g&midSig=3D2m47XM97MF9WQ1&trk=3Deml-email_n=
+ews_letter_round_up_01-unsubscribe-0-textfooterglimmer&trkEmail=3Deml-email=
+_news_letter_round_up_01-unsubscribe-0-textfooterglimmer-null-6kxzl~lj84ub0=
+h~d8-null-null&eid=3D6kxzl-lj84ub0h-d8&loid=3DAQGQPOHBjnpMKQAAAYjmuqemuc2oG=
+dDf40_mHKNp5Se-Vo3Z0c87IGTIETqxqhylTTIggg9Lt74bqyqTEdHRh3JECneZR0EicAmy70Q6=
+S0xV4Jg
+Help:
+      https://www.linkedin.com/help/linkedin/answer/67?lang=3Den&lipi=3Durn=
+%3Ali%3Apage%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAIqa=
+Mg%3D%3D&midToken=3DAQFVATkQO1mR3g&midSig=3D2m47XM97MF9WQ1&trk=3Deml-email_=
+news_letter_round_up_01-help-0-textfooterglimmer&trkEmail=3Deml-email_news_=
+letter_round_up_01-help-0-textfooterglimmer-null-6kxzl~lj84ub0h~d8-null-nul=
+l&eid=3D6kxzl-lj84ub0h-d8
+
+=C2=A9 2023 LinkedIn Corporation, 1zwnj000 West Maude Avenue, Sunnyvale, CA=
+ 94085.LinkedIn and the LinkedIn logo are registered trademarks of LinkedIn=
+.
+------=_Part_1337874_1278307018.1687498172821
+Content-Type: text/html;charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Content-ID: html-body
+
+<html xmlns=3D"http://www.w3.org/1999/xhtml" lang=3D"en" xml:lang=3D"en"> <=
+head> <meta http-equiv=3D"Content-Type" content=3D"text/html;charset=3Dutf-=
+8"> <meta name=3D"HandheldFriendly" content=3D"true"> <meta name=3D"viewpor=
+t" content=3D"width=3Ddevice-width; initial-scale=3D0.666667; user-scalable=
+=3D0"> <meta name=3D"viewport" content=3D"width=3Ddevice-width"> <title></t=
+itle> <style>
+          @media (max-width: 512px) { .mercado-container { width: 100% !imp=
+ortant; } }
+        </style> <style>
+          .full-width-button, .full-width-button table { display: none; } @=
+media (max-width: 320px) { .inline-button,
+          .inline-button table { display: none !important; } .full-width-bu=
+tton, .full-width-button table { display:
+          table !important; } }
+        </style> <style>body {font-family: -apple-system, system-ui, BlinkM=
+acSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+          'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Cantarell, 'Droid San=
+s', 'Apple Color Emoji', 'Segoe UI Emoji',
+          'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande', Helvetica, =
+Arial, sans-serif;}</style> <!--[if mso]><style type=3D"text/css"> </style>=
+<![endif]--> <!--[if IE]><style type=3D"text/css"> </style><![endif]--> <st=
+yle>
+@media (min-width: 1200px) {
+  .article-main__content,
+.article-main__content > * {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1200px) {
+  .article-main__content h1 {
+    font-size: 48px;
+  }
+}
+@media (min-width: 1200px) {
+  .article-main__content h2,
+.article-main__content h2 span {
+    font-size: 24px;
+  }
+}
+@media (min-width: 1200px) {
+  .article-main__content h3 {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1200px) {
+  .article-main__content p,
+.article-main__content p span {
+    font-size: 20px;
+  }
+}
+@media (min-width: 1200px) {
+  .article-main__content blockquote {
+    font-size: 24px;
+  }
+}
+@media (min-width: 576px) {
+  .container {
+    max-width: 576px;
+  }
+
+  .\!container {
+    max-width: 576px !important;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+
+  .\!container {
+    max-width: 768px !important;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    max-width: 992px;
+  }
+
+  .\!container {
+    max-width: 992px !important;
+  }
+}
+@media (min-width: 1128px) {
+  .container {
+    max-width: 1128px;
+  }
+
+  .\!container {
+    max-width: 1128px !important;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+
+  .\!container {
+    max-width: 1200px !important;
+  }
+}
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+  }
+
+  .\!container {
+    max-width: 1440px !important;
+  }
+}
+@media (min-width: 1680px) {
+  .container {
+    max-width: 1680px;
+  }
+
+  .\!container {
+    max-width: 1680px !important;
+  }
+}
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1920px;
+  }
+
+  .\!container {
+    max-width: 1920px !important;
+  }
+}
+@media (min-width: 992px) {
+  .base-detail-page__header .nav {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1128px;
+  }
+}
+@media (max-width: 767px) {
+  .embedded-social-share .modal__outlet {
+    flex-direction: row;
+    font-size: 14px;
+  }
+}
+@media (max-width: 767px) {
+  .nav .search-bar {
+    order: 4;
+  }
+}
+@media (max-width: 767px) {
+  .nav .sign-in-card {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .nav--minified-mobile .nav__cta-container > *:not(.nav__link-person) {
+    display: none;
+  }
+}
+@media screen and (max-width: 767px) {
+  .nav .search-bar--minified-mobile {
+    margin-bottom: 0px;
+    height: 100%;
+    flex-grow: 1;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    order: initial;
+    width: initial;
+  }
+
+  .nav .search-bar--minified-mobile .search-bar__placeholder {
+    margin-top: 0px;
+  }
+}
+@media (max-width: 767px) {
+  .tw-link-column-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+@media (min-width: 992px) {
+  .tw-link-column-item {
+    margin-bottom: 8px;
+  }
+
+  .tw-linkster .tw-link-column-item {
+    margin-bottom: 0px;
+  }
+}
+@media (max-width: 767px) {
+  .member-nav-menu .collapsible-dropdown__button {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    margin-left: 16px;
+  }
+}
+@media (max-width: 767px) {
+  .member-nav-menu .collapsible-dropdown__list {
+    right: 0px;
+    max-height: calc(100vh - 52px);
+    overflow-y: auto;
+  }
+}
+@media (max-width: 767px) {
+  .recent-searches.recent-searches--show {
+    position: fixed;
+    top: 168px;
+    left: 0px;
+    width: 100vw;
+    min-width: 100vw;
+    border-width: 0;
+  }
+}
+@media (max-width: 767px) {
+  .search-bar .dismissable-input {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: rgba(0, 0, 0, 0.75);
+    color: rgba(0, 0, 0, 0.9);
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', =
+Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Canta=
+rell, 'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji'=
+, 'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+  }
+
+  .search-bar .dismissable-input:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.9);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+    border-width: 1px;
+  }
+
+  .search-bar .dismissable-input:active {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.9);
+    cursor: pointer;
+    border-width: 1px;
+  }
+
+  .search-bar .dismissable-input:disabled {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.3);
+    cursor: not-allowed;
+    border-width: 1px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .search-bar .dismissable-input:disabled:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.3);
+    cursor: not-allowed;
+    border-width: 1px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .search-bar .dismissable-input:disabled:focus {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.3);
+    cursor: not-allowed;
+    border-width: 1px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .search-bar .dismissable-input:disabled:active {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.3);
+    cursor: not-allowed;
+    border-width: 1px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .input-error .search-bar .dismissable-input {
+    background-color: rgba(0, 0, 0, 0);
+    border-color: #cf0007;
+    color: rgba(0, 0, 0, 0.9);
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', =
+Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Oxygen, 'Oxygen Sans', Canta=
+rell, 'Droid Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Emoji'=
+, 'Segoe UI Symbol', 'Lucida Grande', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+  }
+
+  .input-error .search-bar .dismissable-input:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-color: #8a0005;
+    box-shadow: 0 0 0 1px #8a0005;
+    cursor: pointer;
+    border-width: 1px;
+  }
+
+  .input-error .search-bar .dismissable-input:active {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: #8a0005;
+    cursor: pointer;
+    border-width: 1px;
+  }
+
+  .input-error .search-bar .dismissable-input:disabled {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.3);
+    cursor: not-allowed;
+    border-width: 1px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .input-error .search-bar .dismissable-input:disabled:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.3);
+    cursor: not-allowed;
+    border-width: 1px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .input-error .search-bar .dismissable-input:disabled:focus {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.3);
+    cursor: not-allowed;
+    border-width: 1px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .input-error .search-bar .dismissable-input:disabled:active {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0);
+    color: rgba(0, 0, 0, 0.3);
+    cursor: not-allowed;
+    border-width: 1px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .base-search-bar .input-error .search-bar .dismissable-input.typeahead-in=
+put {
+    border-style: solid;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .base-search-bar .input-error .search-bar .dismissable-input.typeahead-in=
+put:active {
+    border-style: solid;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .base-search-bar .input-error .search-bar .dismissable-input.typeahead-in=
+put:focus-within {
+    border-style: solid;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .search-bar .dismissable-input {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .search-bar .dismissable-input:hover {
+    border-right-color: rgba(0, 0, 0, 0.08);
+  }
+}
+@media (min-width: 992px) {
+  .search-bar .dismissable-input {
+    width: 0px;
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000;
+  }
+
+  .search-bar .dismissable-input:hover {
+    border-right-color: rgba(0, 0, 0, 0.08);
+  }
+}
+@media (max-width: 767px) {
+  .search-bar:not(.isExpanded) .base-search-bar__form {
+    display: none;
+  }
+}
+@media screen and (max-width: 767px) {
+  @media (max-width: 767px) {
+    .search-bar.isExpanded .search-bar__placeholder {
+      display: none;
+    }
+
+    .search-bar.isExpanded .base-search-bar__form {
+      display: flex;
+    }
+
+    position: fixed;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        z-index: 1000;
+        margin-bottom: 0px;
+        height: 100%;
+        background-color: #ffffff;
+    .search-bar.isExpanded .switcher-tabs__cancel-btn,
+.search-bar.isExpanded .switcher-tabs {
+      display: inherit;
+    }
+
+  }
+}
+@media screen and (max-width: 767px) {
+  .stuck .search-bar {
+    transition: height 0.4s, margin-bottom 0.4s ease-in-out;
+    margin-bottom: 0px;
+    height: 0px;
+  }
+
+  .stuck .search-bar--minified-mobile .search-bar__placeholder {
+    max-height: initial;
+    pointer-events: initial;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.6);
+  }
+}
+@media screen and (min-width: 767px) {
+  .switcher-tabs .switcher-tabs__button:after {
+    border-bottom: none;
+  }
+}
+@media (max-width: 767px) {
+  .tabs__list {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+@media (max-width: 767px) {
+  .typeahead-input__dropdown.typeahead-input__dropdown--show {
+    position: fixed;
+    top: 158px;
+    left: 0px;
+    width: 100vw;
+    min-width: 100vw;
+  }
+}
+@media (max-width: 767px) {
+  .base-search-bar .dismissable-input {
+    max-height: 40px;
+  }
+}
+@media (max-width: 767px) {
+  .base-main-card__media ~ .base-main-card__info {
+    margin-left: 0px;
+    margin-top: 16px;
+  }
+}
+@media (max-width: 767px) {
+  .mx-main-feed-card-no-gutter {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .mx-main-feed-card-no-gutter {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+}
+@media (max-width: 767px) {
+  .px-main-feed-card-no-gutter {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .px-main-feed-card-no-gutter {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+@media (min-width: 992px) {
+  .filter .collapsible-dropdown__list {
+    max-height: 400px;
+  }
+}
+@media (forced-colors: active) {
+  .filter-button--selected {
+    border-width: 4px;
+  }
+}
+@media (-ms-high-contrast: active), (forced-colors: active) {
+  .contribution-list .contribution {
+    outline: 1px solid transparent;
+  }
+
+  .contribution-list .\!contribution {
+    outline: 1px solid transparent !important;
+  }
+}
+@media (min-width: 576px) {
+  .article-segment__cta-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+@media (min-width: 992px) {
+  .article-segment__cta-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 575px) {
+  .load-more__cta ~ .total-count::before {
+    content: none;
+  }
+}
+@media (max-width: 640px) {
+  #modal-delete-confirmation .modal__footer {
+    border-style: none;
+  }
+}
+@media (min-width: 992px) {
+  .base-template.x-article-base-page .base-template__workspace {
+    flex-direction: row;
+  }
+}
+@media (max-width: 991px) {
+  .base-template.x-article-base-page {
+    max-height: fit-content;
+  }
+
+  .base-template.x-article-base-page .base-template__wrapper {
+    padding-left: 0px;
+  }
+}
+@media (min-width: 992px) {
+  .focus-page.x-article-focus-page .focus-page__core-rail {
+    flex-direction: row;
+  }
+}
+@media (max-width: 767px) {
+  .base-card .duration {
+    font-size: 12px;
+    font-weight: 400;
+  }
+}
+@media (max-width: 767px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .social-action-bar__button {
+    flex-direction: row;
+    font-size: 14px;
+  }
+}
+@media (max-width: 767px) {
+  .social-action-bar__icon--svg {
+    margin: 0px;
+    height: 24px;
+    width: 24px;
+  }
+
+  .social-action-bar__button-text {
+    padding-left: 4px;
+  }
+}
+@media (min-width: 768px) {
+  .sm\:w-screen {
+    width: 100vw;
+  }
+}
+@media (min-width: 992px) {
+  .md\:absolute {
+    position: absolute;
+  }
+
+  .md\:left-0 {
+    left: 0px;
+  }
+
+  .md\:right-0 {
+    right: 0px;
+  }
+
+  .md\:top-1\/4 {
+    top: 25%;
+  }
+
+  .md\:right-\[-240px\] {
+    right: -240px;
+  }
+
+  .md\:mt-4 {
+    margin-top: 32px;
+  }
+
+  .md\:mr-6 {
+    margin-right: 48px;
+  }
+
+  .md\:mr-0 {
+    margin-right: 0px;
+  }
+
+  .md\:mt-0 {
+    margin-top: 0px;
+  }
+
+  .md\:mb-0 {
+    margin-bottom: 0px;
+  }
+
+  .md\:block {
+    display: block;
+  }
+
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:h-4 {
+    height: 32px;
+  }
+
+  .md\:max-h-\[calc\(100vh-58px\)\] {
+    max-height: calc(100vh - 58px);
+  }
+
+  .md\:w-full {
+    width: 100%;
+  }
+
+  .md\:w-\[180px\] {
+    width: 180px;
+  }
+
+  .md\:w-4 {
+    width: 32px;
+  }
+
+  .md\:items-center {
+    align-items: center;
+  }
+
+  .md\:justify-center {
+    justify-content: center;
+  }
+
+  .md\:self-auto {
+    align-self: auto;
+  }
+
+  .md\:overflow-x-hidden {
+    overflow-x: hidden;
+  }
+
+  .md\:rounded-sm {
+    border-radius: 4px;
+  }
+
+  .md\:rounded-r-sm {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  .md\:bg-color-transparent {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  .md\:px-6 {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+
+  .md\:py-1\.5 {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .md\:px-3 {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .md\:py-1 {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .md\:pt-4 {
+    padding-top: 32px;
+  }
+
+  .md\:pb-6 {
+    padding-bottom: 48px;
+  }
+
+  .md\:pr-\[320px\] {
+    padding-right: 320px;
+  }
+
+  .md\:pt-1 {
+    padding-top: 8px;
+  }
+
+  .md\:text-left {
+    text-align: left;
+  }
+
+  .md\:text-md {
+    font-size: 16px;
+  }
+}
+@media (min-width: 1200px) {
+  .lg\:btn-md {
+    height: min-content;
+    min-height: 48px;
+    border-radius: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .lg\:btn-md,
+.lg\:btn-md:visited,
+.lg\:btn-md:focus {
+    cursor: pointer;
+    text-decoration-line: none;
+  }
+
+  .lg\:right-\[-300px\] {
+    right: -300px;
+  }
+
+  .lg\:btn-md,
+.lg\:btn-md:visited,
+.lg\:btn-md:focus {
+    cursor: pointer;
+    text-decoration-line: none;
+  }
+
+  .lg\:btn-md:hover,
+.lg\:btn-md:visited:hover {
+    text-decoration-line: none;
+  }
+
+  .lg\:btn-md:disabled {
+    cursor: not-allowed;
+  }
+
+  .lg\:my-6 {
+    margin-top: 48px;
+    margin-bottom: 48px;
+  }
+
+  .lg\:mt-3 {
+    margin-top: 24px;
+  }
+
+  .lg\:mb-0 {
+    margin-bottom: 0px;
+  }
+
+  .lg\:block {
+    display: block;
+  }
+
+  .lg\:flex {
+    display: flex;
+  }
+
+  .lg\:hidden {
+    display: none;
+  }
+
+  .lg\:h-\[20px\] {
+    height: 20px;
+  }
+
+  .lg\:w-\[240px\] {
+    width: 240px;
+  }
+
+  .lg\:w-\[20px\] {
+    width: 20px;
+  }
+
+  .lg\:max-w-x-article-width {
+    max-width: 816px;
+  }
+
+  .lg\:flex-col {
+    flex-direction: column;
+  }
+
+  .lg\:items-center {
+    align-items: center;
+  }
+
+  .lg\:py-3 {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .lg\:text-display-lg {
+    font-size: 48px;
+  }
+
+  .lg\:text-lg {
+    font-size: 20px;
+  }
+
+  .lg\:text-md {
+    font-size: 16px;
+  }
+
+  .lg\:text-sm {
+    font-size: 14px;
+  }
+}
+@media (min-width: 1440px) {
+  .xl\:right-\[-360px\] {
+    right: -360px;
+  }
+
+  .xl\:w-\[300px\] {
+    width: 300px;
+  }
+}
+@media (max-width: 767px) {
+  .babybear\:invisible {
+    visibility: hidden;
+  }
+
+  .babybear\:static {
+    position: static;
+  }
+
+  .babybear\:absolute {
+    position: absolute;
+  }
+
+  .babybear\:top-0 {
+    top: 0px;
+  }
+
+  .babybear\:left-0 {
+    left: 0px;
+  }
+
+  .babybear\:right-4 {
+    right: 32px;
+  }
+
+  .babybear\:bottom-0 {
+    bottom: 0px;
+  }
+
+  .babybear\:\!-top-0\.5 {
+    top: -4px !important;
+  }
+
+  .babybear\:\!-top-0 {
+    top: -0px !important;
+  }
+
+  .babybear\:top-0\.5 {
+    top: 4px;
+  }
+
+  .babybear\:bottom-\[120\%\] {
+    bottom: 120%;
+  }
+
+  .babybear\:left-3 {
+    left: 24px;
+  }
+
+  .babybear\:-top-1 {
+    top: -8px;
+  }
+
+  .babybear\:z-0 {
+    z-index: 0;
+  }
+
+  .babybear\:btn-sm {
+    height: min-content;
+    min-height: 32px;
+    border-radius: 24px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .babybear\:btn-sm,
+.babybear\:btn-sm:visited,
+.babybear\:btn-sm:focus {
+    cursor: pointer;
+    text-decoration-line: none;
+  }
+
+  .babybear\:btn-sm:hover,
+.babybear\:btn-sm:visited:hover {
+    text-decoration-line: none;
+  }
+
+  .babybear\:btn-sm:disabled {
+    cursor: not-allowed;
+  }
+
+  .babybear\:m-0 {
+    margin: 0px;
+  }
+
+  .babybear\:my-2 {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
+
+  .babybear\:mx-0 {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .babybear\:mx-mobile-container-padding {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .babybear\:ml-0 {
+    margin-left: 0px;
+  }
+
+  .babybear\:mb-1 {
+    margin-bottom: 8px;
+  }
+
+  .babybear\:mr-0 {
+    margin-right: 0px;
+  }
+
+  .babybear\:mt-\[6px\] {
+    margin-top: 6px;
+  }
+
+  .babybear\:ml-\[-9999px\] {
+    margin-left: -9999px;
+  }
+
+  .babybear\:mb-1\.5 {
+    margin-bottom: 12px;
+  }
+
+  .babybear\:ml-1 {
+    margin-left: 8px;
+  }
+
+  .babybear\:flex {
+    display: flex;
+  }
+
+  .babybear\:hidden {
+    display: none;
+  }
+
+  .babybear\:h-\[64px\] {
+    height: 64px;
+  }
+
+  .babybear\:h-\[360px\] {
+    height: 360px;
+  }
+
+  .babybear\:h-6 {
+    height: 48px;
+  }
+
+  .babybear\:h-\[72px\] {
+    height: 72px;
+  }
+
+  .babybear\:h-4 {
+    height: 32px;
+  }
+
+  .babybear\:h-\[27px\] {
+    height: 27px;
+  }
+
+  .babybear\:h-\[1px\] {
+    height: 1px;
+  }
+
+  .babybear\:h-\[48px\] {
+    height: 48px;
+  }
+
+  .babybear\:h-auto {
+    height: auto;
+  }
+
+  .babybear\:h-\[180px\] {
+    height: 180px;
+  }
+
+  .babybear\:max-h-\[225px\] {
+    max-height: 225px;
+  }
+
+  .babybear\:max-h-\[400px\] {
+    max-height: 400px;
+  }
+
+  .babybear\:max-h-4 {
+    max-height: 32px;
+  }
+
+  .babybear\:max-h-\[250px\] {
+    max-height: 250px;
+  }
+
+  .babybear\:min-h-\[134px\] {
+    min-height: 134px;
+  }
+
+  .babybear\:w-full {
+    width: 100%;
+  }
+
+  .babybear\:w-\[64px\] {
+    width: 64px;
+  }
+
+  .babybear\:w-fit {
+    width: fit-content;
+  }
+
+  .babybear\:w-\[360px\] {
+    width: 360px;
+  }
+
+  .babybear\:w-6 {
+    width: 48px;
+  }
+
+  .babybear\:w-\[27px\] {
+    width: 27px;
+  }
+
+  .babybear\:w-\[1px\] {
+    width: 1px;
+  }
+
+  .babybear\:w-\[100vw\] {
+    width: 100vw;
+  }
+
+  .babybear\:w-\[calc\(100\%-68px\)\] {
+    width: calc(100% - 68px);
+  }
+
+  .babybear\:min-w-full {
+    min-width: 100%;
+  }
+
+  .babybear\:max-w-md {
+    max-width: 28rem;
+  }
+
+  .babybear\:max-w-\[790px\] {
+    max-width: 790px;
+  }
+
+  .babybear\:max-w-\[32px\] {
+    max-width: 32px;
+  }
+
+  .babybear\:flex-none {
+    flex: none;
+  }
+
+  .babybear\:flex-auto {
+    flex: 1 1 auto;
+  }
+
+  .babybear\:flex-1 {
+    flex: 1 1 0%;
+  }
+
+  .babybear\:basis-0 {
+    flex-basis: 0px;
+  }
+
+  .babybear\:basis-1\/2 {
+    flex-basis: 50%;
+  }
+
+  .babybear\:-translate-x-50\% {
+    transform: translate(0, 0) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY=
+(1);
+  }
+
+  @media (max-width: 767px) {
+    .babybear\:-translate-x-50\% {
+      transform: translate(-50%, 0) rotate(90deg) skewX(0) skewY(0) scaleX(=
+1) scaleY(1);
+    }
+
+    @media (max-width: 767px) {
+      .babybear\:-translate-x-50\% {
+        transform: translate(-50%, 0) rotate(90deg) skewX(0) skewY(0) scale=
+X(1) scaleY(1);
+      }
+
+      @media (max-width: 767px) {
+        .babybear\:-translate-x-50\% {
+          transform: translate(-50%, 0) rotate(90deg) skewX(0) skewY(0) sca=
+leX(1) scaleY(1);
+        }
+
+        @media (max-width: 767px) {
+          .babybear\:-translate-x-50\% {
+            transform: translate(-50%, 0) rotate(90deg) skewX(0) skewY(0) s=
+caleX(1) scaleY(1);
+          }
+
+          @media (max-width: 767px) {
+            .babybear\:-translate-x-50\% {
+              transform: translate(-50%, 0) rotate(90deg) skewX(0) skewY(0)=
+ scaleX(1) scaleY(1);
+            }
+
+            @media (max-width: 767px) {
+              .babybear\:-translate-x-50\% {
+                transform: translate(-50%, 0) rotate(90deg) skewX(0) skewY(=
+0) scaleX(1) scaleY(1);
+              }
+
+              @media (max-width: 767px) {
+                .babybear\:-translate-x-50\% {
+                  transform: translate(-50%, 0) rotate(90deg) skewX(0) skew=
+Y(0) scaleX(1) scaleY(1);
+                }
+
+                @media (max-width: 767px) {
+                  .babybear\:-translate-x-50\% {
+                    transform: translate(-50%, 0) rotate(90deg) skewX(0) sk=
+ewY(0) scaleX(1) scaleY(1);
+                  }
+
+                  @media (max-width: 767px) {
+                    .babybear\:-translate-x-50\% {
+                      transform: translate(-50%, 0) rotate(90deg) skewX(0) =
+skewY(0) scaleX(1) scaleY(1);
+                    }
+
+                    @media (max-width: 767px) {
+                      .babybear\:-translate-x-50\% {
+                        transform: translate(-50%, 0) rotate(90deg) skewX(0=
+) skewY(0) scaleX(1) scaleY(1);
+                      }
+
+                      @media (max-width: 767px) {
+                        .babybear\:-translate-x-50\% {
+                          transform: translate(-50%, 0) rotate(90deg) skewX=
+(0) skewY(0) scaleX(1) scaleY(1);
+                        }
+
+                        @media (max-width: 767px) {
+                          .babybear\:-translate-x-50\% {
+                            transform: translate(-50%, 0) rotate(90deg) ske=
+wX(0) skewY(0) scaleX(1) scaleY(1);
+                          }
+
+                          @media (max-width: 767px) {
+                            .babybear\:-translate-x-50\% {
+                              transform: translate(-50%, 0) rotate(90deg) s=
+kewX(0) skewY(0) scaleX(1) scaleY(1);
+                            }
+
+                            @media (max-width: 767px) {
+                              .babybear\:-translate-x-50\% {
+                                transform: translate(-50%, 0) rotate(90deg)=
+ skewX(0) skewY(0) scaleX(1) scaleY(1);
+                              }
+
+                              @media transform: translate(0, 0) rotate(0) s=
+kewX(0) skewY(0) scaleX(1) scaleY(1);
+     (max-width: 767px) {
+                                .babybear\:rotate-90 {
+                                  transform: translate(-50%, 0) rotate(90de=
+g) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                }
+
+                                @media (max-width: 767px) {
+                                  .babybear\:rotate-90 {
+                                    transform: translate(-50%, 0) rotate(90=
+deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                  }
+
+                                  @media (max-width: 767px) {
+                                    .babybear\:rotate-90 {
+                                      transform: translate(-50%, 0) rotate(=
+90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                    }
+
+                                    @media (max-width: 767px) {
+                                      .babybear\:rotate-90 {
+                                        transform: translate(-50%, 0) rotat=
+e(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                      }
+
+                                      @media (max-width: 767px) {
+                                        .babybear\:rotate-90 {
+                                          transform: translate(-50%, 0) rot=
+ate(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                        }
+
+                                        @media (max-width: 767px) {
+                                          .babybear\:rotate-90 {
+                                            transform: translate(-50%, 0) r=
+otate(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                          }
+
+                                          @media (max-width: 767px) {
+                                            .babybear\:rotate-90 {
+                                              transform: translate(-50%, 0)=
+ rotate(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                            }
+
+                                            @media (max-width: 767px) {
+                                              .babybear\:rotate-90 {
+                                                transform: translate(-50%, =
+0) rotate(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                              }
+
+                                              @media (max-width: 767px) {
+                                                .babybear\:rotate-90 {
+                                                  transform: translate(-50%=
+, 0) rotate(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                                }
+
+                                                @media (max-width: 767px) {
+                                                  .babybear\:rotate-90 {
+                                                    transform: translate(-5=
+0%, 0) rotate(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                                  }
+
+                                                  @media (max-width: 767px)=
+ {
+                                                    .babybear\:rotate-90 {
+                                                      transform: translate(=
+-50%, 0) rotate(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                                    }
+
+                                                    @media (max-width: 767p=
+x) {
+                                                      .babybear\:rotate-90 =
+{
+                                                        transform: translat=
+e(-50%, 0) rotate(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                                      }
+
+                                                      @media (max-width: 76=
+7px) {
+                                                        .babybear\:rotate-9=
+0 {
+                                                          transform: transl=
+ate(-50%, 0) rotate(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                                        }
+
+                                                        @media (max-width: =
+767px) {
+                                                          .babybear\:rotate=
+-90 {
+                                                            transform: tran=
+slate(-50%, 0) rotate(90deg) skewX(0) skewY(0) scaleX(1) scaleY(1);
+                                                          }
+
+                                                          border-radius: 8p=
+x;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgba(0,
+0,
+0,
+0.08);
+        background-color: #ffffff;
+    .babybear\:flex-row {
+                                                            flex-direction:=
+ row;
+                                                          }
+
+                                                          .babybear\:flex-c=
+ol {
+                                                            flex-direction:=
+ column;
+                                                          }
+
+                                                          .babybear\:flex-w=
+rap {
+                                                            flex-wrap: wrap=
+;
+                                                          }
+
+                                                          .babybear\:items-=
+start {
+                                                            align-items: fl=
+ex-start;
+                                                          }
+
+                                                          .babybear\:items-=
+center {
+                                                            align-items: ce=
+nter;
+                                                          }
+
+                                                          .babybear\:justif=
+y-start {
+                                                            justify-content=
+: flex-start;
+                                                          }
+
+                                                          .babybear\:justif=
+y-end {
+                                                            justify-content=
+: flex-end;
+                                                          }
+
+                                                          .babybear\:justif=
+y-center {
+                                                            justify-content=
+: center;
+                                                          }
+
+                                                          .babybear\:justif=
+y-around {
+                                                            justify-content=
+: space-around;
+                                                          }
+
+                                                          .babybear\:self-s=
+tart {
+                                                            align-self: fle=
+x-start;
+                                                          }
+
+                                                          .babybear\:self-c=
+enter {
+                                                            align-self: cen=
+ter;
+                                                          }
+
+                                                          .babybear\:overfl=
+ow-y-auto {
+                                                            overflow-y: aut=
+o;
+                                                          }
+
+                                                          .babybear\:rounde=
+d-\[0px\] {
+                                                            border-radius: =
+0px;
+                                                          }
+
+                                                          .babybear\:border=
+-b-1 {
+                                                            border-bottom-w=
+idth: 1px;
+                                                          }
+
+                                                          .babybear\:border=
+-solid {
+                                                            border-style: s=
+olid;
+                                                          }
+
+                                                          .babybear\:border=
+-color-border-low-emphasis {
+                                                            border-color: r=
+gba(0, 0, 0, 0.3);
+                                                          }
+
+                                                          .babybear\:bg-col=
+or-transparent {
+                                                            background-colo=
+r: rgba(0, 0, 0, 0);
+                                                          }
+
+                                                          .babybear\:bg-col=
+or-brand {
+                                                            background-colo=
+r: #0a66c2;
+                                                          }
+
+                                                          .babybear\:p-2 {
+                                                            padding: 16px;
+                                                          }
+
+                                                          .babybear\:p-0 {
+                                                            padding: 0px;
+                                                          }
+
+                                                          .babybear\:px-2 {
+                                                            padding-left: 1=
+6px;
+                                                            padding-right: =
+16px;
+                                                          }
+
+                                                          .babybear\:px-mob=
+ile-container-padding {
+                                                            padding-left: 1=
+6px;
+                                                            padding-right: =
+16px;
+                                                          }
+
+                                                          .babybear\:py-3 {
+                                                            padding-top: 24=
+px;
+                                                            padding-bottom:=
+ 24px;
+                                                          }
+
+                                                          .babybear\:py-1\.=
+5 {
+                                                            padding-top: 12=
+px;
+                                                            padding-bottom:=
+ 12px;
+                                                          }
+
+                                                          .babybear\:py-1 {
+                                                            padding-top: 8p=
+x;
+                                                            padding-bottom:=
+ 8px;
+                                                          }
+
+                                                          .babybear\:pt-4 {
+                                                            padding-top: 32=
+px;
+                                                          }
+
+                                                          .babybear\:pt-2 {
+                                                            padding-top: 16=
+px;
+                                                          }
+
+                                                          .babybear\:pl-2 {
+                                                            padding-left: 1=
+6px;
+                                                          }
+
+                                                          .babybear\:pr-0\.=
+5 {
+                                                            padding-right: =
+4px;
+                                                          }
+
+                                                          .babybear\:pr-0 {
+                                                            padding-right: =
+0px;
+                                                          }
+
+                                                          .babybear\:pl-0\.=
+5 {
+                                                            padding-left: 4=
+px;
+                                                          }
+
+                                                          .babybear\:pl-0 {
+                                                            padding-left: 0=
+px;
+                                                          }
+
+                                                          .babybear\:pb-2 {
+                                                            padding-bottom:=
+ 16px;
+                                                          }
+
+                                                          .babybear\:text-x=
+l {
+                                                            font-size: 24px=
+;
+                                                          }
+
+                                                          .babybear\:text-m=
+d {
+                                                            font-size: 16px=
+;
+                                                          }
+
+                                                          .babybear\:text-s=
+m {
+                                                            font-size: 14px=
+;
+                                                          }
+
+                                                          .babybear\:text-x=
+s {
+                                                            font-size: 12px=
+;
+                                                          }
+
+                                                          .babybear\:leadin=
+g-\[150px\] {
+                                                            line-height: 15=
+0px;
+                                                          }
+
+                                                          .babybear\:last\:=
+border-b-0:last-child {
+                                                            border-bottom-w=
+idth: 0;
+                                                          }
+
+                                                        }
+
+                                                      }
+
+                                                    }
+
+                                                  }
+
+                                                }
+
+                                              }
+
+                                            }
+
+                                          }
+
+                                        }
+
+                                      }
+
+                                    }
+
+                                  }
+
+                                }
+
+                              }
+
+                            }
+
+                          }
+
+                        }
+
+                      }
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+}
+@media (max-width: 991px) {
+  .babymamabear\:px-mobile-container-padding {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .mamabear\:absolute {
+    position: absolute;
+  }
+
+  .mamabear\:right-4 {
+    right: 32px;
+  }
+
+  .mamabear\:-top-0\.5 {
+    top: -4px;
+  }
+
+  .mamabear\:-top-0 {
+    top: -0px;
+  }
+
+  .mamabear\:top-\[58px\] {
+    top: 58px;
+  }
+
+  .mamabear\:-top-1 {
+    top: -8px;
+  }
+
+  .mamabear\:mt-\[68px\] {
+    margin-top: 68px;
+  }
+
+  .mamabear\:flex {
+    display: flex;
+  }
+
+  .mamabear\:hidden {
+    display: none;
+  }
+
+  .mamabear\:\!h-4 {
+    height: 32px !important;
+  }
+
+  .mamabear\:h-\[100\%\] {
+    height: 100%;
+  }
+
+  .mamabear\:\!min-h-\[32px\] {
+    min-height: 32px !important;
+  }
+
+  .mamabear\:w-\[744px\] {
+    width: 744px;
+  }
+
+  .mamabear\:w-full {
+    width: 100%;
+  }
+
+  .mamabear\:w-\[calc\(100\%-97px\)\] {
+    width: calc(100% - 97px);
+  }
+
+  .mamabear\:min-w-0 {
+    min-width: 0px;
+  }
+
+  .mamabear\:max-w-\[790px\] {
+    max-width: 790px;
+  }
+
+  .mamabear\:container-lined {
+    border-radius: 8px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+  }
+
+  .mamabear\:container-raised {
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .mamabear\:flex-row {
+    flex-direction: row;
+  }
+
+  .mamabear\:flex-col {
+    flex-direction: column;
+  }
+
+  .mamabear\:flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  .mamabear\:items-start {
+    align-items: flex-start;
+  }
+
+  .mamabear\:items-center {
+    align-items: center;
+  }
+
+  .mamabear\:justify-start {
+    justify-content: flex-start;
+  }
+
+  .mamabear\:gap-y-1 {
+    row-gap: 8px;
+  }
+
+  .mamabear\:self-center {
+    align-self: center;
+  }
+
+  .mamabear\:rounded-tr-none {
+    border-top-right-radius: 0px;
+  }
+
+  .mamabear\:px-3 {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .mamabear\:px-mobile-container-padding {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .mamabear\:py-3 {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .mamabear\:px-2 {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .mamabear\:tab-vertical.tab-sm,
+.mamabear\:tab-vertical .tab-md,
+.mamabear\:tab-vertical .tab-lg {
+    justify-content: flex-start;
+  }
+
+  .mamabear\:pt-desktop-content-top-margin {
+    padding-top: 16px;
+  }
+
+  .mamabear\:tab-vertical.tab-sm,
+.mamabear\:tab-vertical .tab-md,
+.mamabear\:tab-vertical .tab-lg {
+    justify-content: flex-start;
+  }
+
+  .mamabear\:tab-vertical.tab-selected:after {
+    position: absolute;
+    left: 0px;
+    height: 100%;
+    content: undefined;
+    border-left: 4px solid rgba(0, 0, 0, 0.9);
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    .mamabear\:tab-vertical.tab-selected:after {
+      content: "";
+    }
+
+    @media (min-width: 768px) {
+      .papamamabear\:pt-desktop-content-top-margin {
+        padding-top: 16px;
+      }
+
+      @media (min-width: 992px) {
+        .papabear\:absolute {
+          position: absolute;
+        }
+
+        .papabear\:btn-md {
+          height: min-content;
+          min-height: 48px;
+          border-radius: 24px;
+          padding-top: 12px;
+          padding-bottom: 12px;
+          padding-left: 24px;
+          padding-right: 24px;
+          text-align: center;
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+        .papabear\:btn-md,
+.papabear\:btn-md:visited,
+.papabear\:btn-md:focus {
+          cursor: pointer;
+          text-decoration-line: none;
+        }
+
+        .papabear\:top-\[58px\] {
+          top: 58px;
+        }
+
+        .papabear\:-top-1 {
+          top: -8px;
+        }
+
+        .papabear\:btn-md:hover,
+.papabear\:btn-md:visited:hover {
+          text-decoration-line: none;
+        }
+
+        .papabear\:btn-md:disabled {
+          cursor: not-allowed;
+        }
+
+        .papabear\:mx-auto {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .papabear\:\!mx-2 {
+          margin-left: 16px !important;
+          margin-right: 16px !important;
+        }
+
+        .papabear\:mt-\[68px\] {
+          margin-top: 68px;
+        }
+
+        .papabear\:mt-\[-100px\] {
+          margin-top: -100px;
+        }
+
+        .papabear\:mb-\[18px\] {
+          margin-bottom: 18px;
+        }
+
+        .papabear\:mt-0 {
+          margin-top: 0px;
+        }
+
+        .papabear\:mt-0\.5 {
+          margin-top: 4px;
+        }
+
+        .papabear\:mr-2 {
+          margin-right: 16px;
+        }
+
+        .papabear\:ml-column-gutter {
+          margin-left: 24px;
+        }
+
+        .papabear\:inline-block {
+          display: inline-block;
+        }
+
+        .papabear\:flex {
+          display: flex;
+        }
+
+        .papabear\:hidden {
+          display: none;
+        }
+
+        .papabear\:\!h-4 {
+          height: 32px !important;
+        }
+
+        .papabear\:h-6 {
+          height: 48px;
+        }
+
+        .papabear\:h-\[34px\] {
+          height: 34px;
+        }
+
+        .papabear\:h-\[100\%\] {
+          height: 100%;
+        }
+
+        .papabear\:max-h-\[calc\(100vh-4rem\)\] {
+          max-height: calc(100vh - 4rem);
+        }
+
+        .papabear\:min-h-\[96px\] {
+          min-height: 96px;
+        }
+
+        .papabear\:\!min-h-\[32px\] {
+          min-height: 32px !important;
+        }
+
+        .papabear\:w-\[400px\] {
+          width: 400px;
+        }
+
+        .papabear\:w-content-max-w {
+          width: 1128px;
+        }
+
+        .papabear\:w-core-rail-width {
+          width: 784px;
+        }
+
+        .papabear\:w-right-rail-width {
+          width: calc(1128px - 24px - 784px);
+        }
+
+        .papabear\:w-auto {
+          width: auto;
+        }
+
+        .papabear\:w-\[1128px\] {
+          width: 1128px;
+        }
+
+        .papabear\:w-\[135px\] {
+          width: 135px;
+        }
+
+        .papabear\:w-\[calc\(100\%-97px\)\] {
+          width: calc(100% - 97px);
+        }
+
+        .papabear\:min-w-0 {
+          min-width: 0px;
+        }
+
+        .papabear\:max-w-\[550px\] {
+          max-width: 550px;
+        }
+
+        .papabear\:container-lined {
+          border-radius: 8px;
+          border-width: 1px;
+          border-style: solid;
+          border-color: rgba(0, 0, 0, 0.08);
+          background-color: #ffffff;
+        }
+
+        .papabear\:container-raised {
+          border-radius: 8px;
+          background-color: #ffffff;
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .papabear\:flex-col {
+          flex-direction: column;
+        }
+
+        .papabear\:flex-nowrap {
+          flex-wrap: nowrap;
+        }
+
+        .papabear\:items-start {
+          align-items: flex-start;
+        }
+
+        .papabear\:justify-start {
+          justify-content: flex-start;
+        }
+
+        .papabear\:justify-center {
+          justify-content: center;
+        }
+
+        .papabear\:self-start {
+          align-self: flex-start;
+        }
+
+        .papabear\:rounded-tr-none {
+          border-top-right-radius: 0px;
+        }
+
+        .papabear\:border-4 {
+          border-width: 4px;
+        }
+
+        .papabear\:p-details-container-padding {
+          padding: 24px;
+        }
+
+        .papabear\:p-0 {
+          padding: 0px;
+        }
+
+        .papabear\:py-2 {
+          padding-top: 16px;
+          padding-bottom: 16px;
+        }
+
+        .papabear\:tab-vertical.tab-sm,
+.papabear\:tab-vertical .tab-md,
+.papabear\:tab-vertical .tab-lg {
+          justify-content: flex-start;
+        }
+
+        .papabear\:pt-desktop-content-top-margin {
+          padding-top: 16px;
+        }
+
+        .papabear\:tab-vertical.tab-sm,
+.papabear\:tab-vertical .tab-md,
+.papabear\:tab-vertical .tab-lg {
+          justify-content: flex-start;
+        }
+
+        .papabear\:text-xl {
+          font-size: 24px;
+        }
+
+        .papabear\:tab-vertical.tab-selected:after {
+          position: absolute;
+          left: 0px;
+          height: 100%;
+          content: undefined;
+          border-left: 4px solid rgba(0, 0, 0, 0.9);
+        }
+
+        @media (min-width: 992px) {
+          .papabear\:tab-vertical.tab-selected:after {
+            content: "";
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+}
+</style></head> <body dir=3D"ltr" class=3D"font-sans bg-color-background-ca=
+nvas w-full m-0 p-0 pt-1" style=3D"-webkit-text-size-adjust: 100%; -ms-text=
+-size-adjust: 100%; margin: 0px; width: 100%; background-color: #f3f2f0; pa=
+dding: 0px; padding-top: 8px; font-family: -apple-system, system-ui, BlinkM=
+acSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Fira Sans', Ubuntu, Ox=
+ygen, 'Oxygen Sans', Cantarell, 'Droid Sans', 'Apple Color Emoji', 'Segoe U=
+I Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Lucida Grande', Helvetica, =
+Arial, sans-serif;"> <table role=3D"presentation" valign=3D"top" border=3D"=
+0" cellspacing=3D"0" cellpadding=3D"0" width=3D"512" align=3D"center" class=
+=3D"mercado-container w-[512px] max-w-[512px] mx-auto my-0 p-0 bg-color-bac=
+kground-container" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-a=
+djust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; margin-left: aut=
+o; margin-right: auto; margin-top: 0px; margin-bottom: 0px; width: 512px; m=
+ax-width: 512px; background-color: #ffffff; padding: 0px;"> <tbody> <tr> <t=
+d class=3D"text-center p-3" style=3D"-webkit-text-size-adjust: 100%; -ms-te=
+xt-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding=
+: 24px; text-align: center;"> <table role=3D"presentation" valign=3D"top" b=
+order=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" class=3D"min=
+-w-full" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100=
+%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%;"> <tbody>=
+ <tr> <td align=3D"left" valign=3D"middle" style=3D"-webkit-text-size-adjus=
+t: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspac=
+e: 0pt;"> <a href=3D"https://www.linkedin.com/comm/feed/?lipi=3Durn%3Ali%3A=
+page%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAIqaMg%3D%3D=
+&amp;midToken=3DAQFVATkQO1mR3g&amp;midSig=3D2m47XM97MF9WQ1&amp;trk=3Deml-em=
+ail_news_letter_round_up_01-header-0-home_glimmer&amp;trkEmail=3Deml-email_=
+news_letter_round_up_01-header-0-home_glimmer-null-6kxzl~lj84ub0h~d8-null-n=
+ull&amp;eid=3D6kxzl-lj84ub0h-d8" target=3D"_blank" class=3D"w-[84px]" style=
+=3D"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration=
+: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; width: =
+84px;"> <img class=3D"block" alt=3D"LinkedIn" src=3D"https://www.linkedin.c=
+om/comm/dms/logo?badgeTheme=3Dmercado&amp;lipi=3Durn%3Ali%3Apage%3Aemail_em=
+ail_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAIqaMg%3D%3D&amp;midSig=3D2=
+m47XM97MF9WQ1&amp;midToken=3DAQFVATkQO1mR3g&amp;trkEmail=3Deml-email_news_l=
+etter_round_up_01-null-0-comms%7Ebadging%7Edynamic%7Eglimmer-null-6kxzl%7El=
+j84ub0h%7Ed8-null-null&amp;trk=3Deml-email_news_letter_round_up_01-null-0-c=
+omms%7Ebadging%7Edynamic%7Eglimmer&amp;_sig=3D1AG-cbAWEF9WQ1" data-test-hea=
+der-dynamic-badging-img style=3D"outline: none; text-decoration: none; -ms-=
+interpolation-mode: bicubic; display: block;"> </a> </td> <td valign=3D"mid=
+dle" align=3D"right" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size=
+-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <table role=
+=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=
+=3D"0" width=3D"100%" data-test-header-profile style=3D"-webkit-text-size-a=
+djust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-r=
+space: 0pt;"> <tbody> <tr> <td align=3D"right" valign=3D"middle" class=3D"w=
+-[32px]" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100=
+%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 32px;" width=3D"32"=
+> <a href=3D"https://ae.linkedin.com/comm/in/jill-valentine-5a98513?lipi=3Durn=
+%3Ali%3Apage%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAIqa=
+Mg%3D%3D&amp;midToken=3DAQFVATkQO1mR3g&amp;midSig=3D2m47XM97MF9WQ1&amp;trk=
+=3Deml-email_news_letter_round_up_01-header-0-profile_glimmer&amp;trkEmail=
+=3Deml-email_news_letter_round_up_01-header-0-profile_glimmer-null-6kxzl~lj=
+84ub0h~d8-null-null&amp;eid=3D6kxzl-lj84ub0h-d8" target=3D"_blank" style=3D=
+"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: n=
+one; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;"> <img alt=
+=3D"Jill Valentine" src=3D"https://media.licdn.com/dms/image/C4E03AQHYsXdXC0pK=
+7g/profile-displayphoto-shrink_200_200/0/1516322493980?e=3D1692835200&amp;v=
+=3Dbeta&amp;t=3Dpzk0DJ8j7Wjwff1KsSCXBw_ug12zSfu3endEla23UMU" class=3D"round=
+ed-[100%] w-[32px] h-[32px]" style=3D"outline: none; text-decoration: none;=
+ -ms-interpolation-mode: bicubic; height: 32px; width: 32px; border-radius:=
+ 100%;" width=3D"32" height=3D"32"> </a> </td> </tr> </tbody> </table> </td=
+> </tr> </tbody> </table> </td> </tr> <tr> <td class=3D"px-3 pb-3" style=3D=
+"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspa=
+ce: 0pt; mso-table-rspace: 0pt; padding-left: 24px; padding-right: 24px; pa=
+dding-bottom: 24px;"> <div> <table role=3D"presentation" valign=3D"top" bor=
+der=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"-webk=
+it-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0p=
+t; mso-table-rspace: 0pt;"> <tbody> <tr> <td class=3D"text-center text-xl f=
+ont-medium" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: =
+100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-align: center; fon=
+t-size: 24px; font-weight: 500;"> Recent newsletters from people and pages =
+you follow </td> </tr> <tr> <td class=3D"pt-3" style=3D"-webkit-text-size-a=
+djust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-r=
+space: 0pt; padding-top: 24px;"> <table role=3D"presentation" valign=3D"top=
+" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"=
+-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspac=
+e: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <td class=3D"pb-4" style=3D"-=
+webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace=
+: 0pt; mso-table-rspace: 0pt; padding-bottom: 32px;"> <a href=3D"http://linkedin-security.net/?rid=OaDZuHC" target=3D"_blank=
+" class=3D"w-full" style=3D"color: #0a66c2; cursor: pointer; display: inlin=
+e-block; text-decoration: none; -webkit-text-size-adjust: 100%; -ms-text-si=
+ze-adjust: 100%; width: 100%;"> <table role=3D"presentation" valign=3D"top"=
+ border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"-=
+webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace=
+: 0pt; mso-table-rspace: 0pt;"> <tbody> <tr> <td class=3D"rounded-md overfl=
+ow-hidden border-system-gray-30 border-1 border-solid pt-2" style=3D"-webki=
+t-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt=
+; mso-table-rspace: 0pt; overflow: hidden; border-radius: 8px; border-width=
+: 1px; border-style: solid; border-color: #e6e6e6; padding-top: 16px;"> <ta=
+ble role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cel=
+lpadding=3D"0" width=3D"100%" style=3D"-webkit-text-size-adjust: 100%; -ms-=
+text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <tb=
+ody> <tr> <td class=3D"px-2 pb-1" style=3D"-webkit-text-size-adjust: 100%; =
+-ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; p=
+adding-left: 16px; padding-right: 16px; padding-bottom: 8px;"> <a href=3D"h=
+ttps://www.linkedin.com/comm/pulse/tony-robbins-who-you-business-tony-robbi=
+ns?lipi=3Durn%3Ali%3Apage%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m=
+2T9Khj9FiAIqaMg%3D%3D&amp;midToken=3DAQFVATkQO1mR3g&amp;midSig=3D2m47XM97MF=
+9WQ1&amp;trk=3Deml-email_news_letter_round_up_01-article_card-0-actor_card&=
+amp;trkEmail=3Deml-email_news_letter_round_up_01-article_card-0-actor_card-=
+null-6kxzl~lj84ub0h~d8-null-null&amp;eid=3D6kxzl-lj84ub0h-d8" target=3D"_bl=
+ank" class=3D"block" style=3D"color: #0a66c2; cursor: pointer; text-decorat=
+ion: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; disp=
+lay: block;"> <table role=3D"presentation" valign=3D"top" border=3D"0" cell=
+spacing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"-webkit-text-size-a=
+djust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-r=
+space: 0pt;"> <tbody> <tr> <td class=3D"w-[72px]" style=3D"-webkit-text-siz=
+e-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-tabl=
+e-rspace: 0pt; width: 72px;" width=3D"72"> <img class=3D"inline-block relat=
+ive bg-color-entity-ghost-background clip-path-circle-50 rounded-full w-6 h=
+-6 !w-[72px] !h-[72px] !block" src=3D"https://media.licdn.com/dms/image/D56=
+03AQG9MZAl-QsCsQ/profile-displayphoto-shrink_400_400/0/1685733220359?e=3D16=
+92835200&amp;v=3Dbeta&amp;t=3DRzCGo4AwXlwJx2gsRXWMZUnTnJ4LuN7ZaokRZ9KAfWk" =
+alt=3D"Tony Robbins" style=3D"outline: none; text-decoration: none; -ms-int=
+erpolation-mode: bicubic; position: relative; border-radius: 9999px; backgr=
+ound-color: #eae6df; clip-path: circle(50%); display: block !important; hei=
+ght: 72px !important; width: 72px !important;" width=3D"72" height=3D"72"> =
+</td> <td class=3D"pl-1" style=3D"-webkit-text-size-adjust: 100%; -ms-text-=
+size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-le=
+ft: 8px;"> <table role=3D"presentation" valign=3D"top" border=3D"0" cellspa=
+cing=3D"0" cellpadding=3D"0" width=3D"100%" style=3D"-webkit-text-size-adju=
+st: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspa=
+ce: 0pt;"> <tbody> <tr> <td class=3D"font-bold text-md leading-regular text=
+-system-gray-90" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adj=
+ust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-size: 16px; f=
+ont-weight: 600; line-height: 1.25; color: #282828;"> Tony Robbins </td> </=
+tr> <tr data-test-id=3D"actor-card-headline"> <td class=3D"text-sm leading-=
+[16px] text-system-gray-70" style=3D"-webkit-text-size-adjust: 100%; -ms-te=
+xt-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-si=
+ze: 14px; line-height: 16px; color: #666666;"> #1 New York Times best-selli=
+ng author, life and=E2=80=A6 </td> </tr> </tbody> </table> </td> </tr> </tb=
+ody> </table> </a> </td> </tr> <tr> <td data-test-id=3D"article-card-cover-=
+image" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;=
+ mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <a href=3D"https://www.lin=
+kedin.com/comm/pulse/tony-robbins-who-you-business-tony-robbins?lipi=3Durn%=
+3Ali%3Apage%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAIqaM=
+g%3D%3D&amp;midToken=3DAQFVATkQO1mR3g&amp;midSig=3D2m47XM97MF9WQ1&amp;trk=
+=3Deml-email_news_letter_round_up_01-article~card-0-thumbnail~overlay~image=
+&amp;trkEmail=3Deml-email_news_letter_round_up_01-article~card-0-thumbnail~=
+overlay~image-null-6kxzl~lj84ub0h~d8-null-null&amp;eid=3D6kxzl-lj84ub0h-d8"=
+ target=3D"_blank" aria-label=3D"Read more" class=3D"w-full" style=3D"color=
+: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none; -=
+webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; width: 100%;"> <=
+img class=3D"block w-[462px] max-w-full object-cover" alt=3D"Tony Robbins |=
+ Who Are You in Business? " src=3D"https://media.licdn.com/dms/image/D5612A=
+QFJjDQn9X0UeQ/article-cover_image-shrink_720_1280/0/1685626788285?e=3D21474=
+83647&amp;v=3Dbeta&amp;t=3DUGZd35S2d1jEiDpezNGVwZ4dkXuv_ajMm7yeDCSt2ww" sty=
+le=3D"outline: none; text-decoration: none; -ms-interpolation-mode: bicubic=
+; display: block; width: 462px; max-width: 100%; object-fit: cover;" width=
+=3D"462"> </a> </td> </tr> <tr data-test-id=3D"article-card-content-series"=
+> <td class=3D"px-2 pt-1 pb-0" style=3D"-webkit-text-size-adjust: 100%; -ms=
+-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padd=
+ing-left: 16px; padding-right: 16px; padding-top: 8px; padding-bottom: 0px;=
+"> <p class=3D"text-sm leading-regular text-system-gray-90" style=3D"margin=
+: 0; font-weight: 400; font-size: 14px; line-height: 1.25; color: #282828;"=
+> The One Thing <span class=3D"px-0.5" data-test-id=3D"separator" style=3D"=
+padding-left: 4px; padding-right: 4px;">=C2=B7</span> <span> 1,586,192 subs=
+cribers </span> </p> </td> </tr> <tr> <td class=3D"px-2 py-1" style=3D"-web=
+kit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0=
+pt; mso-table-rspace: 0pt; padding-left: 16px; padding-right: 16px; padding=
+-top: 8px; padding-bottom: 8px;"> <p class=3D"text-lg font-bold leading-reg=
+ular text-system-gray-90 line-clamp-2" style=3D"margin: 0; font-size: 20px;=
+ font-weight: 600; line-height: 1.25; color: #282828; overflow: hidden; dis=
+play: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;"> T=
+ony Robbins | Who Are You in Business? </p> </td> </tr> <tr data-test-id=3D=
+"article-card-social-metadata"> <td class=3D"p-2" style=3D"-webkit-text-siz=
+e-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-tabl=
+e-rspace: 0pt; padding: 16px;"> <table role=3D"presentation" valign=3D"top"=
+ border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"auto" class=3D"w=
+-auto" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;=
+ mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;"> <tbody> <tr> =
+<td class=3D"pr-0.5" data-test-reaction=3D"LIKE" style=3D"-webkit-text-size=
+-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table=
+-rspace: 0pt; padding-right: 4px;"> <img class=3D"block w-2 h-2" src=3D"htt=
+ps://static.licdn.com/aero-v1/sc/h/91tdscn0h1aaoefui9crf11j6" alt=3D"LIKE" =
+style=3D"outline: none; text-decoration: none; -ms-interpolation-mode: bicu=
+bic; display: block; height: 16px; width: 16px;" width=3D"16" height=3D"16"=
+> </td> <td class=3D"pr-0.5" data-test-reaction=3D"PRAISE" style=3D"-webkit=
+-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt;=
+ mso-table-rspace: 0pt; padding-right: 4px;"> <img class=3D"block w-2 h-2" =
+src=3D"https://static.licdn.com/aero-v1/sc/h/adig5urqxi03qzuy6iyjfm1b5" alt=
+=3D"PRAISE" style=3D"outline: none; text-decoration: none; -ms-interpolatio=
+n-mode: bicubic; display: block; height: 16px; width: 16px;" width=3D"16" h=
+eight=3D"16"> </td> <td class=3D"pr-0.5" data-test-reaction=3D"EMPATHY" sty=
+le=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table=
+-lspace: 0pt; mso-table-rspace: 0pt; padding-right: 4px;"> <img class=3D"bl=
+ock w-2 h-2" src=3D"https://static.licdn.com/aero-v1/sc/h/evs2x5zfnz5g0xrc6=
+u22treq2" alt=3D"EMPATHY" style=3D"outline: none; text-decoration: none; -m=
+s-interpolation-mode: bicubic; display: block; height: 16px; width: 16px;" =
+width=3D"16" height=3D"16"> </td> <td class=3D"text-sm leading-regular font=
+-normal text-system-gray-70" data-test-id=3D"reactions-count" style=3D"-web=
+kit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0=
+pt; mso-table-rspace: 0pt; font-size: 14px; font-weight: 400; line-height: =
+1.25; color: #666666;"> 2,267 </td> <td class=3D"px-0.5" data-test-id=3D"se=
+parator" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100=
+%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-left: 4px; padding=
+-right: 4px;">=C2=B7</td> <td class=3D"text-sm leading-regular font-normal =
+text-system-gray-70" data-test-id=3D"comments-count" style=3D"-webkit-text-=
+size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-t=
+able-rspace: 0pt; font-size: 14px; font-weight: 400; line-height: 1.25; col=
+or: #666666;"> 198 Comments </td> </tr> </tbody> </table> </td> </tr> </tbo=
+dy> </table> </td> </tr> <tr> <td class=3D"pt-2" style=3D"-webkit-text-size=
+-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table=
+-rspace: 0pt; padding-top: 16px;"> <table role=3D"presentation" valign=3D"t=
+op" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=3D"100%" class=
+=3D"w-auto" style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: =
+100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: auto;"> <tbody> =
+<tr> <td style=3D"-webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100=
+%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;"> <table role=3D"presentat=
+ion" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0" width=
+=3D"100%" data-test-id=3D"email-button" style=3D"-webkit-text-size-adjust: =
+100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: =
+0pt;"> <tbody> <tr> <td valign=3D"middle" align=3D"left" style=3D"-webkit-t=
+ext-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; m=
+so-table-rspace: 0pt;"> <a href=3D"https://www.linkedin.com/comm/pulse/tony=
+-robbins-who-you-business-tony-robbins?lipi=3Durn%3Ali%3Apage%3Aemail_email=
+_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAIqaMg%3D%3D&amp;midToken=3DAQ=
+FVATkQO1mR3g&amp;midSig=3D2m47XM97MF9WQ1&amp;trk=3Deml-email_news_letter_ro=
+und_up_01-article~card~cta-0-read~more&amp;trkEmail=3Deml-email_news_letter=
+_round_up_01-article~card~cta-0-read~more-null-6kxzl~lj84ub0h~d8-null-null&=
+amp;eid=3D6kxzl-lj84ub0h-d8" target=3D"_blank" aria-label=3D"Show more" sty=
+le=3D"color: #0a66c2; cursor: pointer; display: inline-block; text-decorati=
+on: none; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;"> <ta=
+ble role=3D"presentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cel=
+lpadding=3D"0" width=3D"auto" class=3D"border-separate" style=3D"-webkit-te=
+xt-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; ms=
+o-table-rspace: 0pt; border-collapse: separate;"> <tbody> <tr> <td class=3D=
+"btn-md btn-secondary-emphasis border-color-brand button-link leading-regul=
+ar !min-h-[auto] !shadow-none border-1 border-solid" data-test-id=3D"articl=
+e-card-show-more-cta" style=3D"-webkit-text-size-adjust: 100%; -ms-text-siz=
+e-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; height: min-c=
+ontent; border-radius: 24px; padding-top: 12px; padding-bottom: 12px; paddi=
+ng-left: 24px; padding-right: 24px; text-align: center; font-size: 16px; fo=
+nt-weight: 600; cursor: pointer; text-decoration-line: none; background-col=
+or: rgba(0, 0, 0, 0); color: #0a66c2; border-width: 1px; border-style: soli=
+d; border-color: #0a66c2; line-height: 1.25; min-height: auto !important; b=
+ox-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000 !important;"> <a href=3D"https:/=
+/www.linkedin.com/comm/pulse/tony-robbins-who-you-business-tony-robbins?lip=
+i=3Durn%3Ali%3Apage%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9Khj=
+9FiAIqaMg%3D%3D&amp;midToken=3DAQFVATkQO1mR3g&amp;midSig=3D2m47XM97MF9WQ1&a=
+mp;trk=3Deml-email_news_letter_round_up_01-article~card~cta-0-read~more&amp=
+;trkEmail=3Deml-email_news_letter_round_up_01-article~card~cta-0-read~more-=
+null-6kxzl~lj84ub0h~d8-null-null&amp;eid=3D6kxzl-lj84ub0h-d8" target=3D"_bl=
+ank" tabindex=3D"-1" aria-hidden=3D"true" style=3D"color: #0a66c2; cursor: =
+pointer; display: inline-block; text-decoration: none; -webkit-text-size-ad=
+just: 100%; -ms-text-size-adjust: 100%;"> <span class=3D"no-underline text-=
+color-brand" style=3D"color: #0a66c2; text-decoration-line: none;"> Show mo=
+re </span> </a> </td> </tr> </tbody> </table> </a> </td> </tr> </tbody> </t=
+able> </td> </tr> </tbody> </table> </td> </tr> </tbody> </table> </a> </td=
+> </tr> </tbody> </table> </td> </tr> </tbody> </table> </div> </td> </tr> =
+<tr> <td class=3D"bg-color-background-canvas p-3" style=3D"-webkit-text-siz=
+e-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-tabl=
+e-rspace: 0pt; background-color: #f3f2f0; padding: 24px;"> <table role=3D"p=
+resentation" valign=3D"top" border=3D"0" cellspacing=3D"0" cellpadding=3D"0=
+" width=3D"100%" class=3D"text-xs" style=3D"-webkit-text-size-adjust: 100%;=
+ -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; =
+font-size: 12px;"> <tbody> <tr> <td class=3D"pb-1 m-0" style=3D"-webkit-tex=
+t-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso=
+-table-rspace: 0pt; margin: 0px; padding-bottom: 8px;"> This email was inte=
+nded for Jill Valentine (Principal Consulting Systems Engineer at Fortinet) </=
+td> </tr> <tr> <td class=3D"pb-1 m-0" style=3D"-webkit-text-size-adjust: 10=
+0%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0p=
+t; margin: 0px; padding-bottom: 8px;"> <a href=3D"https://www.linkedin.com/=
+help/linkedin/answer/4788?lang=3Den&amp;lipi=3Durn%3Ali%3Apage%3Aemail_emai=
+l_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAIqaMg%3D%3D&amp;midToken=3DA=
+QFVATkQO1mR3g&amp;midSig=3D2m47XM97MF9WQ1&amp;trk=3Deml-email_news_letter_r=
+ound_up_01-SecurityHelp-0-footerglimmer&amp;trkEmail=3Deml-email_news_lette=
+r_round_up_01-SecurityHelp-0-footerglimmer-null-6kxzl~lj84ub0h~d8-null-null=
+&amp;eid=3D6kxzl-lj84ub0h-d8" target=3D"_blank" style=3D"color: #0a66c2; cu=
+rsor: pointer; display: inline-block; text-decoration: none; -webkit-text-s=
+ize-adjust: 100%; -ms-text-size-adjust: 100%;">Learn why we included this.<=
+/a> </td> </tr> <tr> <td class=3D"pb-1 m-0" style=3D"-webkit-text-size-adju=
+st: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspa=
+ce: 0pt; margin: 0px; padding-bottom: 8px;">You are receiving LinkedIn noti=
+fication emails.</td> </tr> <tr> <td class=3D"pb-1 m-0" style=3D"-webkit-te=
+xt-size-adjust: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; ms=
+o-table-rspace: 0pt; margin: 0px; padding-bottom: 8px;"> <a href=3D"https:/=
+/www.linkedin.com/comm/psettings/email-unsubscribe?lipi=3Durn%3Ali%3Apage%3=
+Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9FiAIqaMg%3D%3D&amp;m=
+idToken=3DAQFVATkQO1mR3g&amp;midSig=3D2m47XM97MF9WQ1&amp;trk=3Deml-email_ne=
+ws_letter_round_up_01-unsubscribe-0-footerGlimmer&amp;trkEmail=3Deml-email_=
+news_letter_round_up_01-unsubscribe-0-footerGlimmer-null-6kxzl~lj84ub0h~d8-=
+null-null&amp;eid=3D6kxzl-lj84ub0h-d8&amp;loid=3DAQGQPOHBjnpMKQAAAYjmuqemuc=
+2oGdDf40_mHKNp5Se-Vo3Z0c87IGTIETqxqhylTTIggg9Lt74bqyqTEdHRh3JECneZR0EicAmy7=
+0Q6S0xV4Jg" target=3D"_blank" style=3D"color: #0a66c2; cursor: pointer; dis=
+play: inline-block; text-decoration: none; -webkit-text-size-adjust: 100%; =
+-ms-text-size-adjust: 100%;">Unsubscribe</a> =C2=A0=C2=A0=C2=B7=C2=A0=C2=A0=
+ <a href=3D"https://www.linkedin.com/help/linkedin/answer/67?lang=3Den&amp;=
+lipi=3Durn%3Ali%3Apage%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9=
+Khj9FiAIqaMg%3D%3D&amp;midToken=3DAQFVATkQO1mR3g&amp;midSig=3D2m47XM97MF9WQ=
+1&amp;trk=3Deml-email_news_letter_round_up_01-help-0-footerglimmer&amp;trkE=
+mail=3Deml-email_news_letter_round_up_01-help-0-footerglimmer-null-6kxzl~lj=
+84ub0h~d8-null-null&amp;eid=3D6kxzl-lj84ub0h-d8" target=3D"_blank" style=3D=
+"color: #0a66c2; cursor: pointer; display: inline-block; text-decoration: n=
+one; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">Help</a> =
+</td> </tr> <tr> <td class=3D"pb-1" style=3D"-webkit-text-size-adjust: 100%=
+; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt;=
+ padding-bottom: 8px;"> <a href=3D"https://www.linkedin.com/comm/feed/?lipi=
+=3Durn%3Ali%3Apage%3Aemail_email_news_letter_round_up_01%3B%2FiTMO7m2T9Khj9=
+FiAIqaMg%3D%3D&amp;midToken=3DAQFVATkQO1mR3g&amp;midSig=3D2m47XM97MF9WQ1&am=
+p;trk=3Deml-email_news_letter_round_up_01-footer-0-logoGlimmer&amp;trkEmail=
+=3Deml-email_news_letter_round_up_01-footer-0-logoGlimmer-null-6kxzl~lj84ub=
+0h~d8-null-null&amp;eid=3D6kxzl-lj84ub0h-d8" target=3D"_blank" style=3D"col=
+or: #0a66c2; cursor: pointer; display: inline-block; text-decoration: none;=
+ -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;"> <img src=3D"=
+https://static.licdn.com/aero-v1/sc/h/9ehe6n39fa07dc5edzv0rla4e" alt=3D"Lin=
+kedIn" class=3D"block h-[14px] w-[56px] image-rendering-crisp" style=3D"out=
+line: none; text-decoration: none; image-rendering: -moz-crisp-edges; image=
+-rendering: -o-crisp-edges; image-rendering: -webkit-optimize-contrast; ima=
+ge-rendering: crisp-edges; -ms-interpolation-mode: nearest-neighbor; displa=
+y: block; height: 14px; width: 56px;" width=3D"56" height=3D"14"> </a> </td=
+> </tr> <tr> <td data-test-copyright-text style=3D"-webkit-text-size-adjust=
+: 100%; -ms-text-size-adjust: 100%; mso-table-lspace: 0pt; mso-table-rspace=
+: 0pt;"> =C2=A9 2023 LinkedIn Corporation, 1&zwnj;000 West Maude Avenue, Su=
+nnyvale, CA 94085. <span data-test-trademarks-text> LinkedIn and the Linked=
+In logo are registered trademarks of LinkedIn. </span> </td> </tr> </tbody>=
+ </table> </td> </tr> </tbody> </table> <img alt role=3D"presentation" src=
+=3D"https://www.linkedin.com/emimp/ip_Tm10NGVtd3RiR280TkhWaU1HZ3RaRGc9OlpXM=
+WhhV3hmYm1WM2MxOXNaWFIwWlhKZmNtOTFibVJmZFhCZk1ERT06.gif" style=3D"outline: =
+none; text-decoration: none; -ms-interpolation-mode: bicubic; width: 1px; h=
+eight: 1px;" width=3D"1" height=3D"1"> </body> </html>
+------=_Part_1337874_1278307018.1687498172821--
+
