@@ -58,7 +58,7 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=maile.linnkedin.com;
 	b=k9R+1Emk4B5JI3xcGkSO3QL8+GWynXlr3fao6+YgnbFFkNrUIrM3kqLQs1q4fAKML
 	 kaQ9zlKbLA5yeOFxRi7ZXt9PR1gnw5zF7FjSQN4zqRMi98BT6iUu0rXbC/TcqT1p1Z
 	 UHitCONrt3X+DWVCF5KmzNeNqFP29vGbTvnb4zCc=
-From: news@linkedin.com <noreply@linnkedin.com>
+From: Linkedin Bulletin <noreply@linnkedin.com>
 Message-ID: <1898954957.1337876.1687498172823@lor1-app87336.prod.linnkedin.com>
 Subject: Jill, see recent newsletters by Tony Robbins and others
 MIME-Version: 1.0
