@@ -1,0 +1,685 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "@context": "/api/3/contexts/WorkflowCollection",
+      "@type": "WorkflowCollection",
+      "name": "00 - U2 - MS365 logon details",
+      "description": "On the SIEM, a Notable event is generated regarding a successful login to Office365 from a foreign or non-European country. This activity may be related to credential theft, phishing activities, or an insecure login.",
+      "visible": true,
+      "image": null,
+      "uuid": "620c8008-c4bf-49b1-ae50-9234d2d60960",
+      "id": 51,
+      "createDate": 1705395082.596185,
+      "modifyDate": 1706108175.718405,
+      "deletedAt": null,
+      "importedBy": [],
+      "recordTags": [
+        "Activedirectory",
+        "azure-active-directory",
+        "Computer",
+        "Microsoft",
+        "microsoft-defender-office-365"
+      ],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Foreign M365 Login Handler",
+          "aliasName": null,
+          "tag": null,
+          "description": "Handles successful M365 login from abroad notables",
+          "isActive": true,
+          "debug": true,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [
+            "username"
+          ],
+          "synchronous": false,
+          "lastModifyDate": 1706791444,
+          "collection": "/api/3/workflow_collections/620c8008-c4bf-49b1-ae50-9234d2d60960",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/324b3cf8-f1e3-43b9-84a5-a42c5f14335b",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Compile SignIns List",
+              "description": null,
+              "arguments": {
+                "_upd_singins": "{%for log in vars.user_source_data.SignIns.data.value%}\n{{vars.signins.append({\"Application\":log.appDisplayName,\"User\":log.userDisplayName,\"Source IP\":log.ipAddress,\"State\":log.location.state,\"City\":log.location.city,\"User Agent\":log.deviceDetail.browser,\"Trust Type\":log.deviceDetail.trustType,\"Device Name\":log.deviceDetail.displayName,\"OS\":log.deviceDetail.operatingSystem,\"Time\":log.createdDateTime,\"2FA Status\":log.status.additionalDetails,\"Resource Name\":log.resourceDisplayName})}}\n{%endfor%}"
+              },
+              "status": null,
+              "top": "920",
+              "left": "480",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "313e2e4f-8113-476a-9c6f-6752d3d020ac"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Compile User data",
+              "description": null,
+              "arguments": {
+                "user_source_data": "{\n'Details':{{vars.steps.Get_User_Details.data}},\n'Roles':{{vars.steps.Get_Roles_Definitions}},\n'SignIns':{{vars.steps.Get_User_SignIn_Events}},\n'Source IP':{{vars.steps.Create_or_Update_Source_IP}},\n'User Indicator':{{vars.steps.Create_or_Update_User}}\n}"
+              },
+              "status": null,
+              "top": "780",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "1f9db841-c7fe-4a33-a2bb-ce61dd9f3ad4"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Compile User Details",
+              "description": null,
+              "arguments": {
+                "user_details": "{{vars.user_source_data.Details|yaql('dict($.items().where(bool($[1])).where(not isDict($[1])).where(not isList($[1])))')}}"
+              },
+              "status": null,
+              "top": "920",
+              "left": "1180",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "28f34b83-bf17-4d15-9f90-f525ff4e0db0"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Compile User Roles",
+              "description": null,
+              "arguments": {
+                "_build_roles_table": "{%for role in vars.user_source_data.Roles%}\n{{vars.roles_table.append({role.data.roleDefinition.displayName:role.data.roleDefinition.description})}}\n{%endfor%}"
+              },
+              "status": null,
+              "top": "920",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "e8cf70ae-4ef3-42f2-96c7-9632aa2b1ed9"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "signins": "[]",
+                "username": "loris.piana@gruppoiren.onmicrosoft.com",
+                "roles_table": "[]",
+                "alert_src_data": "{{vars.input.records[0].sourcedata|toDict}}",
+                "formatted_item": "<span style=\"background-color:orange;color:black;border-radius: 5px;font-size:7mm;\">&#9788;<font style=\"font-size:16px;font-weight: bold;font-family: 'Georgia', monospace;\">{0}</font></span>"
+              },
+              "status": null,
+              "top": "180",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "ad8ad826-6ec2-429e-9401-e45d52992306"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create or Update Source IP",
+              "description": null,
+              "arguments": {
+                "resource": {
+                  "tlp": "/api/3/picklists/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                  "value": "{{vars.source_ip}}",
+                  "alerts": "{{vars.input.records[0]['@id']}}",
+                  "__replace": "false",
+                  "shareable": false,
+                  "indicatorStatus": "/api/3/picklists/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                  "typeofindicator": "/api/3/picklists/c0beeda4-2c7a-4214-b7e5-53ba1649539c",
+                  "enrichmentStatus": "/api/3/picklists/a6d9da29-27b1-4b8a-965d-8d91518540d5"
+                },
+                "operation": "Overwrite",
+                "collection": "/api/3/upsert/indicators",
+                "__recommend": [],
+                "fieldOperation": {
+                  "recordTags": "Overwrite"
+                },
+                "step_variables": []
+              },
+              "status": null,
+              "top": "640",
+              "left": "480",
+              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
+              "group": null,
+              "uuid": "2e669a5a-882e-4778-965c-fe35e5401e0a"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create or Update User",
+              "description": null,
+              "arguments": {
+                "resource": {
+                  "tlp": "/api/3/picklists/7bff95b7-6438-4b01-b23a-0fe8cb5b33d3",
+                  "value": "{{vars.username}}",
+                  "alerts": "{{vars.input.records[0]['@id']}}",
+                  "__replace": "false",
+                  "shareable": false,
+                  "indicatorStatus": "/api/3/picklists/2f5cff61-fbff-4bb3-96be-302b78a9fb47",
+                  "typeofindicator": "/api/3/picklists/e72907c5-2088-4e85-99d0-6c7970a5470e",
+                  "enrichmentStatus": "/api/3/picklists/a6d9da29-27b1-4b8a-965d-8d91518540d5"
+                },
+                "operation": "Overwrite",
+                "collection": "/api/3/upsert/indicators",
+                "__recommend": [],
+                "fieldOperation": {
+                  "recordTags": "Overwrite"
+                },
+                "step_variables": []
+              },
+              "status": null,
+              "top": "500",
+              "left": "480",
+              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
+              "group": null,
+              "uuid": "49c1eb9c-e578-4dc0-b3ef-410191c967cf"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create User Details Table",
+              "description": null,
+              "arguments": {
+                "params": {
+                  "data": "{{vars.user_details}}",
+                  "display": "Vertical",
+                  "styling": false,
+                  "template": "Stylized with row selection",
+                  "row_fields": ""
+                },
+                "version": "3.2.6",
+                "connector": "cyops_utilities",
+                "operation": "json_to_html",
+                "operationTitle": "Utils: Convert JSON into a HTML Table",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "1060",
+              "left": "1180",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "group": null,
+              "uuid": "d5d06b76-9bcf-4b6d-b6f0-32642b9a74e7"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create User Roles Table",
+              "description": null,
+              "arguments": {
+                "params": {
+                  "data": "{{vars.roles_table}}",
+                  "display": "Vertical",
+                  "styling": false,
+                  "template": "Stylized with row selection",
+                  "row_fields": ""
+                },
+                "version": "3.2.6",
+                "connector": "cyops_utilities",
+                "operation": "json_to_html",
+                "operationTitle": "Utils: Convert JSON into a HTML Table",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "1060",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "group": null,
+              "uuid": "ea5867f7-2139-48b2-bd6e-c64d93f86ce8"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create User SignIns Table",
+              "description": null,
+              "arguments": {
+                "params": {
+                  "data": "{{vars.signins}}",
+                  "display": "Horizontal",
+                  "styling": false,
+                  "template": "Stylized with row selection",
+                  "row_fields": ""
+                },
+                "version": "3.2.6",
+                "connector": "cyops_utilities",
+                "operation": "json_to_html",
+                "operationTitle": "Utils: Convert JSON into a HTML Table",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "1060",
+              "left": "480",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "group": null,
+              "uuid": "129309d4-a26d-4361-8073-ee41b719d58b"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Roles Definitions",
+              "description": null,
+              "arguments": {
+                "name": "Azure Active Directory",
+                "config": "3f014316-51eb-4048-81fd-a2ff2b25c922",
+                "params": {
+                  "body": "",
+                  "method": "GET",
+                  "params": "",
+                  "endpoint": "/roleManagement/directory/roleAssignments/{{vars.item.id}}?$expand=roleDefinition",
+                  "api_version": "beta"
+                },
+                "version": "2.2.0",
+                "for_each": {
+                  "item": "{{vars.roles}}",
+                  "parallel": false,
+                  "condition": ""
+                },
+                "connector": "azure-active-directory",
+                "operation": "rest_api_call",
+                "operationTitle": "Generic REST API Call",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "640",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "0a763cfc-4022-403e-917e-5a46a122da68"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get User Details",
+              "description": null,
+              "arguments": {
+                "name": "Azure Active Directory",
+                "config": "aa42794f-569f-49ad-8e9c-e965405f3aeb",
+                "params": {
+                  "id": "{{vars.username}}",
+                  "based_on": "User Principal Name",
+                  "additional_info": true
+                },
+                "version": "2.2.0",
+                "connector": "azure-active-directory",
+                "operation": "get_user_details",
+                "operationTitle": "Get User Details",
+                "pickFromTenant": false,
+                "step_variables": {
+                  "user_id": "{{vars.steps.Get_User_Details.data.id}}"
+                }
+              },
+              "status": null,
+              "top": "420",
+              "left": "1200",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "6da52394-1953-4e0d-8d94-88e743d6416e"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get User Roles",
+              "description": null,
+              "arguments": {
+                "name": "Azure Active Directory",
+                "config": "3f014316-51eb-4048-81fd-a2ff2b25c922",
+                "params": {
+                  "body": "",
+                  "method": "GET",
+                  "params": "",
+                  "endpoint": "/roleManagement/directory/transitiveRoleAssignments?$filter=principalId eq '{{vars.user_id}}'",
+                  "api_version": "beta"
+                },
+                "version": "2.2.0",
+                "connector": "azure-active-directory",
+                "operation": "rest_api_call",
+                "operationTitle": "Generic REST API Call",
+                "pickFromTenant": false,
+                "step_variables": {
+                  "roles": "{{vars.steps.Get_User_Roles.data.value}}"
+                }
+              },
+              "status": null,
+              "top": "500",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "28e0e8ff-ba83-4f9c-8fab-2d49cc5283cb"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get User SignIn Events",
+              "description": null,
+              "arguments": {
+                "name": "Azure Active Directory",
+                "config": "3f014316-51eb-4048-81fd-a2ff2b25c922",
+                "params": {
+                  "$top": 10,
+                  "$filter": "userPrincipalName eq '{{vars.username}}'",
+                  "$skipToken": "",
+                  "get_all_pages": false
+                },
+                "version": "2.2.0",
+                "connector": "azure-active-directory",
+                "operation": "list_sign_ins",
+                "operationTitle": "List SignIns Events",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "640",
+              "left": "1200",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "f1ae2e47-5e89-4ca5-86e5-92d6a3383c81"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Set Main Parameters",
+              "description": null,
+              "arguments": {
+                "source_ip": "{{vars.alert_src_data.src or \"46.183.216.163\"}}"
+              },
+              "status": null,
+              "top": "300",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "47468f25-0933-4d47-a9a0-f84e95e50285"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "ea49e60e-2e28-4ee4-a5c9-00a0a31137a5",
+                "resources": [
+                  "alerts"
+                ],
+                "__triggerLimit": true,
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "params": [],
+                    "records": "{{vars.input.records}}"
+                  }
+                },
+                "triggerOnSource": true,
+                "displayConditions": {
+                  "alerts": {
+                    "sort": [],
+                    "limit": 30,
+                    "logic": "AND",
+                    "filters": [
+                      {
+                        "type": "primitive",
+                        "field": "source",
+                        "value": "Splunk",
+                        "operator": "eq",
+                        "_operator": "eq"
+                      }
+                    ]
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": false,
+                "showToasterMessage": {
+                  "visible": false,
+                  "messageVisible": true
+                },
+                "triggerOnReplicate": false,
+                "singleRecordExecution": true
+              },
+              "status": null,
+              "top": "40",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "324b3cf8-f1e3-43b9-84a5-a42c5f14335b"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Alert",
+              "description": null,
+              "arguments": {
+                "resource": {
+                  "description": "**User Details:**\n{{vars.steps.Create_User_Details_Table.data}}\n\n<hr>\n\n**Assigned Roles:**\n{{vars.steps.Create_User_Roles_Table.data}}\n\n<hr>\n\n**Last SignIn Events:**\n{{vars.steps.Create_User_SignIns_Table.data}}\n\n"
+                },
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "/api/3/alerts",
+                "fieldOperation": [],
+                "step_variables": []
+              },
+              "status": null,
+              "top": "1200",
+              "left": "840",
+              "stepType": "/api/3/workflow_step_types/b593663d-7d13-40ce-a3a3-96dece928722",
+              "group": null,
+              "uuid": "a10b0f13-2fd6-4050-a6b0-6e0ddec7e7c2"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Compile SignIns List -> Copy of Create User Roles Table",
+              "targetStep": "/api/3/workflow_steps/129309d4-a26d-4361-8073-ee41b719d58b",
+              "sourceStep": "/api/3/workflow_steps/313e2e4f-8113-476a-9c6f-6752d3d020ac",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "c5a7444a-fa7c-4f02-96b0-89ddf3c23259"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Compile User data -> Compile SignIns List",
+              "targetStep": "/api/3/workflow_steps/313e2e4f-8113-476a-9c6f-6752d3d020ac",
+              "sourceStep": "/api/3/workflow_steps/1f9db841-c7fe-4a33-a2bb-ce61dd9f3ad4",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "d4061128-b6d6-4ab4-9ad2-f7144f3f03bb"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Compile User data -> Compile User Summary",
+              "targetStep": "/api/3/workflow_steps/e8cf70ae-4ef3-42f2-96c7-9632aa2b1ed9",
+              "sourceStep": "/api/3/workflow_steps/1f9db841-c7fe-4a33-a2bb-ce61dd9f3ad4",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "1023f7cb-135d-4659-896a-bf329f96ba46"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Compile User data -> Copy of Compile User Summary",
+              "targetStep": "/api/3/workflow_steps/28f34b83-bf17-4d15-9f90-f525ff4e0db0",
+              "sourceStep": "/api/3/workflow_steps/1f9db841-c7fe-4a33-a2bb-ce61dd9f3ad4",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "18a51474-270b-43dd-a125-cfdc6a55fb2a"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Compile User Details -> Create User Details Table",
+              "targetStep": "/api/3/workflow_steps/d5d06b76-9bcf-4b6d-b6f0-32642b9a74e7",
+              "sourceStep": "/api/3/workflow_steps/28f34b83-bf17-4d15-9f90-f525ff4e0db0",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "334eb59e-525a-4f41-954b-2d8891edb56f"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Compile User Roles -> Create User Summary Table",
+              "targetStep": "/api/3/workflow_steps/ea5867f7-2139-48b2-bd6e-c64d93f86ce8",
+              "sourceStep": "/api/3/workflow_steps/e8cf70ae-4ef3-42f2-96c7-9632aa2b1ed9",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "6672ff0d-8d28-4137-b6b0-35653827a165"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configuration -> Set Main Parameters",
+              "targetStep": "/api/3/workflow_steps/47468f25-0933-4d47-a9a0-f84e95e50285",
+              "sourceStep": "/api/3/workflow_steps/ad8ad826-6ec2-429e-9401-e45d52992306",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "c1fee5fe-7aee-4b66-8f17-c5ce35f4cfa9"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Create or Update Source IP -> Compile User data",
+              "targetStep": "/api/3/workflow_steps/1f9db841-c7fe-4a33-a2bb-ce61dd9f3ad4",
+              "sourceStep": "/api/3/workflow_steps/2e669a5a-882e-4778-965c-fe35e5401e0a",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "7ac0deea-b6a3-4ad5-ae53-202abe56e5a9"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Create or Update User -> Create or Update Source IP",
+              "targetStep": "/api/3/workflow_steps/2e669a5a-882e-4778-965c-fe35e5401e0a",
+              "sourceStep": "/api/3/workflow_steps/49c1eb9c-e578-4dc0-b3ef-410191c967cf",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "dc71e5a7-e083-4639-aabf-e982113cd359"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Create User Details Table -> Update Alert",
+              "targetStep": "/api/3/workflow_steps/a10b0f13-2fd6-4050-a6b0-6e0ddec7e7c2",
+              "sourceStep": "/api/3/workflow_steps/d5d06b76-9bcf-4b6d-b6f0-32642b9a74e7",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "8d19d062-1e4a-493f-895c-7b957b2db566"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Create User Roles Table -> Update Alert",
+              "targetStep": "/api/3/workflow_steps/a10b0f13-2fd6-4050-a6b0-6e0ddec7e7c2",
+              "sourceStep": "/api/3/workflow_steps/ea5867f7-2139-48b2-bd6e-c64d93f86ce8",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "38fd3253-95d9-4e6d-bdc8-7dc814941085"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Create User SignIns Table -> Update Alert",
+              "targetStep": "/api/3/workflow_steps/a10b0f13-2fd6-4050-a6b0-6e0ddec7e7c2",
+              "sourceStep": "/api/3/workflow_steps/129309d4-a26d-4361-8073-ee41b719d58b",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "9830eba7-fe71-4361-8874-4c06ced91ca4"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Roles Definitions -> Compile User data",
+              "targetStep": "/api/3/workflow_steps/1f9db841-c7fe-4a33-a2bb-ce61dd9f3ad4",
+              "sourceStep": "/api/3/workflow_steps/0a763cfc-4022-403e-917e-5a46a122da68",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "06d3832a-55f9-4364-97e3-21bb2ba34723"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get USer Details -> Get User Roles",
+              "targetStep": "/api/3/workflow_steps/28e0e8ff-ba83-4f9c-8fab-2d49cc5283cb",
+              "sourceStep": "/api/3/workflow_steps/6da52394-1953-4e0d-8d94-88e743d6416e",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "319c8922-ae6a-4d1c-95a7-ec3427b828df"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get USer Details -> Get User SignIn Events",
+              "targetStep": "/api/3/workflow_steps/f1ae2e47-5e89-4ca5-86e5-92d6a3383c81",
+              "sourceStep": "/api/3/workflow_steps/6da52394-1953-4e0d-8d94-88e743d6416e",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "2687554a-91af-40f7-80c1-8f08b960ee19"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get User Roles -> Get Roles Definitions",
+              "targetStep": "/api/3/workflow_steps/0a763cfc-4022-403e-917e-5a46a122da68",
+              "sourceStep": "/api/3/workflow_steps/28e0e8ff-ba83-4f9c-8fab-2d49cc5283cb",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "1e13f0f7-1fd8-489b-980b-4217d46bc68a"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get User SignIn Events -> Compile User data",
+              "targetStep": "/api/3/workflow_steps/1f9db841-c7fe-4a33-a2bb-ce61dd9f3ad4",
+              "sourceStep": "/api/3/workflow_steps/f1ae2e47-5e89-4ca5-86e5-92d6a3383c81",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "1b637857-eba9-4e0e-a8f0-2f46046217f1"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Set Main Parameters -> Create",
+              "targetStep": "/api/3/workflow_steps/49c1eb9c-e578-4dc0-b3ef-410191c967cf",
+              "sourceStep": "/api/3/workflow_steps/47468f25-0933-4d47-a9a0-f84e95e50285",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "8848da40-30a9-4264-92ec-a3e9ef9222bd"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Set Main Parameters -> Get USer Details",
+              "targetStep": "/api/3/workflow_steps/6da52394-1953-4e0d-8d94-88e743d6416e",
+              "sourceStep": "/api/3/workflow_steps/47468f25-0933-4d47-a9a0-f84e95e50285",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "5e46a697-e633-4221-b757-bd5b6ecb3a4f"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configuration",
+              "targetStep": "/api/3/workflow_steps/ad8ad826-6ec2-429e-9401-e45d52992306",
+              "sourceStep": "/api/3/workflow_steps/324b3cf8-f1e3-43b9-84a5-a42c5f14335b",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "778d7780-3592-44d1-9dfd-71161e03b020"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "1e56a1ab-2744-469e-b6e9-77e49b308257",
+          "id": 1218,
+          "createUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "createDate": 1706712237.137654,
+          "modifyUser": "/api/3/people/3451141c-bac6-467c-8d72-85e0fab569ce",
+          "modifyDate": 1706791445.608661,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": []
+        }
+      ]
+    }
+  ],
+  "exported_tags": [
+    "Activedirectory",
+    "azure-active-directory",
+    "Computer",
+    "Microsoft",
+    "microsoft-defender-office-365"
+  ]
+}
