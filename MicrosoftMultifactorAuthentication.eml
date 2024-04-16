@@ -6,9 +6,9 @@ Received: from Exch19.fortielab.com (10.222.248.67) by Exch19.fortielab.com
  (10.222.248.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.529.5; Tue, 16 Apr 2024
  09:06:42 +0200
-Received: from Exch19.fortielab.com ([::1]) by Exch19.fortielab.com ([::1])
+Received: from mail.microsoft-support.net (110.132.30.51) by mail.microsoft-support.net (110.132.30.51)
  with mapi id 15.02.0529.005; Tue, 16 Apr 2024 09:06:42 +0200
-From: adam smith <asmith@fortielab.com>
+From: Microsoft Support <support@microsoft-support.net>
 To: adam smith <asmith@fortielab.com>
 Subject: Action Required - 2FA Authentication Setup
 Thread-Topic: Action Required - 2FA Authentication Setup
